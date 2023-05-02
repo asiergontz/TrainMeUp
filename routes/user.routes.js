@@ -5,4 +5,6 @@ const User = require("../models/User.model");
 const Routine = require("../models/Routine.model");
 const Trainer = require("../models/Trainer.model");
 
+//Log in Users
+
 module.exports = router;

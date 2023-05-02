@@ -36,7 +36,7 @@ app.use("/user", userRoutes);
 const trainerRoutes = require("./routes/trainer.routes");
 app.use("/trainer", trainerRoutes);
 
-const routineRoutes = require("./routes/routine.routes");
+const routineRoutes = require("./routes/routines.routes");
 app.use("/routine", routineRoutes);
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes

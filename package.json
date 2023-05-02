@@ -7,8 +7,6 @@
     "dev": "nodemon server.js"
   },
   "dependencies": {
- 
-  },
-  "devDependencies": {
+    "bcryptjs": "^2.4.3"
   }
 }

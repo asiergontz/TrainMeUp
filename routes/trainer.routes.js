@@ -8,14 +8,14 @@ const Routine = require("../models/Routine.model");
 module.exports = router;
 
 // LOGIN
-router.get("/login", (req, res, next) => {
+router.get("/login-trainer", (req, res, next) => {
     res.render("auth/login");
   });
   
-router.post("/login", (req, res, next) => {
+router.post("/login-trainer", (req, res, next) => {
     const { email, password } = req.body;
     if (!email || !password) {
-      res.render("/auth/login", {
+      res.render("/auth/login-trainer", {
         errormessage:
           "All fields are mandatory. Please provide your email and password.",
       });

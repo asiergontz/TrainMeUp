@@ -6,21 +6,25 @@ const routineSchema = new Schema({
     required: true,
   },
   day: {
+
     type: Date,
     required: true,
   },
-  exercises: [{
+  exercises: {[{
     name: String,
     repetitions: Number
-    }]
-  ,
+    }],
+    required:true
+     },
   length: {
     type: String,
     required: true,
   },
   difficulty: {
     type: String,
+
     enum: ["Beginner", "Intermediate", "Advanced"],
+
     required: true,
   },
   comments: [String],
@@ -29,3 +33,6 @@ const routineSchema = new Schema({
 });
 
 const Routine = model("Routine", routineSchema);
+
+module.exports = Routine;
+

@@ -6,7 +6,6 @@ const routineSchema = new Schema({
     required: true,
   },
   day: {
-
     type: Date,
     required: true,
   },
@@ -34,4 +33,3 @@ const routineSchema = new Schema({
 const Routine = model("Routine", routineSchema);
 
 module.exports = Routine;
-

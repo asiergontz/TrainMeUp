@@ -10,12 +10,11 @@ const routineSchema = new Schema({
     type: Date,
     required: true,
   },
-  exercises: {[{
+  exercises: [{
     name: String,
     repetitions: Number
-    }],
-    required:true
-     },
+    }]
+    ,
   length: {
     type: String,
     required: true,

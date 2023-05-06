@@ -6,14 +6,15 @@ const routineSchema = new Schema({
     required: true,
   },
   day: {
-    type: Date,
+    type: String,
     required: true,
   },
-  exercises: [{
-    name: String,
-    repetitions: Number
-    }]
-    ,
+  exercises: [
+    {
+      name: String,
+      repetitions: Number,
+    },
+  ],
   length: {
     type: String,
     required: true,

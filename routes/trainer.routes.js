@@ -47,11 +47,11 @@ router.post("/login-trainer", (req, res, next) => {
           return;
         }*/
         req.session.currentUser = dbTrainer;
-        User.find({trainer: dbTrainer._id}).then((specificUsers) => {
+        /*User.find({trainer: dbTrainer._id}).then((specificUsers) => {
             console.log(specificUsers)
             res.render("trainer/dashboard-trainer",{ trainer: dbTrainer, user: specificUsers} )
-        })
-
+        })*/
+        res.redirect("/trainer/dashboard-trainer")
       })
       .catch((error) => next(error));
   });
@@ -59,40 +59,36 @@ router.post("/login-trainer", (req, res, next) => {
 
 //DASHBOARD TRAINER
 
-/*router.get('/dashboard-trainers', (req, res, next) => {
-    User.find()
-      .then(allUsers => {
-        res.render('trainer/dashboard-trainer.hbs', { trainer: allUsers });
+router.get("/dashboard-trainer", (req, res, next) => {
+    const loggedTrainer = req.session.currentUser
+    Trainer.findById(loggedTrainer._id)
+      .then((loggedTrainerData) => {
+        User.find({trainer: loggedTrainer._id}).then((specificUsers) => {
+            res.render("trainer/dashboard-trainer",{ 
+                trainer: loggedTrainerData, 
+                user: specificUsers
+            })
+            })
+        })
+        .catch((err) => next(err));
+    });
+
+
+//Client-details
+
+router.get("/client-details/:id", (req, res) => {
+    User.findById(req.params.id)
+        .populate('routines')
+      .then((clientDetails) => {
+        res.render("trainer/client-details", { clientDetails });
       })
-      .catch(error => {
-        console.log('Error while getting the books from the DB: ', error);
-        next(error);
-      });
-  }); */
+      .catch((error) => next(error));
+  });
+
+
+
 
 
  // Create user//
 
- router.get("/user-create", (req, res, next) => {
-    res.render("trainer/user-create");
-  });
-
-  router.post("/user-create", (req, res, next) => {
-    const { name, email, password, phoneNumber, height, weight, objective } =
-      req.body;
-    User.findOneAndUpdate(email, {
-      name,
-      password,
-      phoneNumber,
-      height,
-      weight,
-      objective,
-    })
-      .then((updatedUser) => {
-        // req.session.currentUser = updatedUser;
-        res.render("user/user-dashboard", { user: updatedUser });
-      })
-      .catch((err) => next(err));
-  });
-
-  module.exports = router;
+ module.exports = router;

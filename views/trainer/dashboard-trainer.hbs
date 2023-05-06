@@ -4,8 +4,8 @@
 
 {{#each user}}
   <div>
-    <h3>{{this.name}}</h3>
+  <a href="/trainer/client-details/{{this._id}}">{{this.name}}</a>
   </div>
 {{/each}}
 
-<a href="/trainer/user-create">Create a client</a>
+<a href="/trainer/user-create">Create a new client</a>

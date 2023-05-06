@@ -1,7 +1,11 @@
-<h1>BOOKS</h1>
+<h1>Trainer dashboard</h1>
  
-{{#each users}}
+ <section id="myclients"></section>
+
+{{#each user}}
   <div>
-    <h3>{{name}}</h3>
+    <h3>{{this.name}}</h3>
   </div>
 {{/each}}
+
+<a href="/trainer/user-create">Create a client</a>

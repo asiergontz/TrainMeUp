@@ -45,6 +45,7 @@ router.post("/login-user", (req, res, next) => {
       //   return;
       // }
       req.session.currentUser = dbUser;
+      console.log(dbUser._id);
       Routine.find({ user: dbUser._id }).then((result) => {
         res.render("user/user-dashboard", { user: dbUser, routines: result });
       });
@@ -105,27 +106,38 @@ router.get("/routine-details/:id", (req, res) => {
     .catch((error) => next(error));
 });
 
-// Test user
-// User.create({
-//   name: "test1",
-//   email: "test1@gmail.com",
-//   password: 1234,
-//   phoneNumber: 1234,
-//   biometrics: { height: 1.68, weight: 56 },
-//   objective: "Improve Health",
-// });
+/* Test user
+User.create({
+name: "test1",
+email: "test1@gmail.com",
+password: 1234,
+phoneNumber: 1234,
+biometrics: { height: 1.68, weight: 56 },
+objective: "Improve Health",
+});
+
 
 //Test routine
-// Routine.create({
-//   bodyPart: "shoulders",
-//   day: "2",
-//   exercises: [
-//     { name: "exercise1", repetitions: 2 },
-//     { name: "exercise2", repetitions: 4 },
-//   ],
-//   length: "45 min",
-//   difficulty: "Beginner",
-//   user: "645538547b45f8e137c0d118",
-// });
+Routine.create({
+bodyPart: "shoulders",
+day: "2",
+exercises: [
+{ name: "exercise1", repetitions: 2 },
+{ name: "exercise2", repetitions: 4 },
+],
+length: "45 min",
+difficulty: "Beginner",
+user: "645538547b45f8e137c0d118",
+});
 
+//Test trainer
+Trainer.create({
+name: "trainer1",
+email: "trainer1@gmail.com",
+password: 1234,
+phoneNumber: 12345,
+clients: "6456182deaf77e3d4c090d94",
+routines: "645618fc70c6253e54ddc25d"
+})
+*/
 module.exports = router;

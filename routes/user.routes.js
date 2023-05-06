@@ -22,13 +22,13 @@ router.post("/login-user", (req, res, next) => {
     });
     return;
   }
-  // if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/.test(password)) {
-  //   res.render("auth/login-user", {
-  //     errorMessage:
-  //       "Password needs to have at least 8 characters and must contain at least one number, one lowercase and one uppercase letter.",
-  //   });
-  //   return;
-  // }
+  if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/.test(password)) {
+    res.render("auth/login-user", {
+      errorMessage:
+        "Password needs to have at least 8 characters and must contain at least one number, one lowercase and one uppercase letter.",
+    });
+    return;
+  }
   User.findOne({ email })
     .then((dbUser) => {
       if (!dbUser) {
@@ -37,13 +37,13 @@ router.post("/login-user", (req, res, next) => {
         });
         return;
       }
-      // const samePassword = bcryptjs.compareSync(password, dbUser.password);
-      // if (!samePassword) {
-      //   res.render("auth/login-user", {
-      //     errormessage: "Incorrect password. Please try again",
-      //   });
-      //   return;
-      // }
+      const samePassword = bcryptjs.compareSync(password, dbUser.password);
+      if (!samePassword) {
+        res.render("auth/login-user", {
+          errormessage: "Incorrect password. Please try again",
+        });
+        return;
+      }
       req.session.currentUser = dbUser;
       res.redirect("/user/user-dashboard");
     })
@@ -64,7 +64,7 @@ router.get("/user-dashboard", (req, res, next) => {
     })
     .catch((err) => next(err));
 });
-//User's data
+
 //Complete data form (First time)
 router.get("/data-create", (req, res, next) => {
   const loggedUser = req.session.currentUser;
@@ -126,7 +126,6 @@ router.post("/data-update", (req, res, next) => {
     .catch((err) => next(err));
 });
 
-//Routines
 //Routine details
 router.get("/routine-details/:id", (req, res) => {
   Routine.findById(req.params.id)
@@ -136,6 +135,11 @@ router.get("/routine-details/:id", (req, res) => {
     .catch((error) => next(error));
 });
 
+//Logout
+router.get("/logout", (req, res) => {
+  req.session.destroy();
+  res.redirect("/");
+});
 
 /* Test user
 User.create({
@@ -159,13 +163,6 @@ exercises: [
 length: "45 min",
 difficulty: "Beginner",
 user: "645538547b45f8e137c0d118",
-
-//Logout
-router.get("/logout", (req, res) => {
-  req.session.destroy();
-  res.redirect("/");
-
-});
 
 //Test trainer
 Trainer.create({

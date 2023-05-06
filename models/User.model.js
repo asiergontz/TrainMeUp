@@ -18,11 +18,11 @@ const userSchema = new Schema({
   },
   phoneNumber: {
     type: String,
-    required: true,
+    required: false,
   },
   biometrics: {
-    height: { type: Number, required: true },
-    weight: { type: Number, required: true },
+    height: { type: Number, required: false },
+    weight: { type: Number, required: false },
   },
   objective: {
     type: String,

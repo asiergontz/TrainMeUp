@@ -14,9 +14,9 @@
 </section>
 <section id="routines">
   <h2>Routines</h2>
-  {{#if user.routines}}
+  {{#if routines}}
     <ul>
-      {{#each user.routines}}
+      {{#each routines}}
         <li>{{this.bodyPart}} - {{this.length}}</li>
         <a href="/user/routine-details/{{this._id}}">View details</a>
       {{/each}}

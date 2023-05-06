@@ -30,7 +30,6 @@ router.post("/login-user", (req, res, next) => {
   //   return;
   // }
   User.findOne({ email })
-    .populate("routines")
     .then((dbUser) => {
       if (!dbUser) {
         res.render("auth/login-user", {
@@ -46,7 +45,9 @@ router.post("/login-user", (req, res, next) => {
       //   return;
       // }
       req.session.currentUser = dbUser;
-      res.render("user/user-dashboard", { user: dbUser });
+      Routine.find({ user: dbUser._id }).then((result) => {
+        res.render("user/user-dashboard", { user: dbUser, routines: result });
+      });
     })
     .catch((error) => next(error));
 });

@@ -2,13 +2,22 @@
 
   <fieldset>
     <legend>Biometrics</legend>
-    <label>Height (cm):<input type="number" name="height" /></label><br />
-    <label>Weight (kg):<input type="number" name="weight" /></label><br />
+    <label>Height (cm):<input
+        type="number"
+        name="height"
+        value="{{userData.biometrics.height}}"
+      /></label><br />
+    <label>Weight (kg):<input
+        type="number"
+        name="weight"
+        value="{{userData.biometrics.weight}}"
+      /></label><br />
   </fieldset>
   <br />
   <label>
     Objective:
     <select name="objective">
+      <option disable selected value="">- Select one</option>
       <option value="Weight Loss">Weight Loss</option>
       <option value="Improve Health">Improve Health</option>
       <option value="Gain weight">Gain weight</option>

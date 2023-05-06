@@ -45,52 +45,83 @@ router.post("/login-user", (req, res, next) => {
       //   return;
       // }
       req.session.currentUser = dbUser;
-      Routine.find({ user: dbUser._id }).then((result) => {
-        res.render("user/user-dashboard", { user: dbUser, routines: result });
-      });
+      res.redirect("/user/user-dashboard");
     })
     .catch((error) => next(error));
 });
 
-// Dashboard
+// DASHBOARD
+router.get("/user-dashboard", (req, res, next) => {
+  const loggedUser = req.session.currentUser;
+  User.findById(loggedUser._id)
+    .then((loggedUserData) => {
+      Routine.find({ user: loggedUser._id }).then((routines) => {
+        res.render("user/user-dashboard", {
+          user: loggedUserData,
+          routines: routines,
+        });
+      });
+    })
+    .catch((err) => next(err));
+});
 //User's data
 //Complete data form (First time)
 router.get("/data-create", (req, res, next) => {
-  res.render("user/data-create");
+  const loggedUser = req.session.currentUser;
+  User.findById(loggedUser._id)
+    .then((userData) => {
+      res.render("user/data-create", { userData });
+    })
+    .catch((err) => next(err));
 });
 
 router.post("/data-create", (req, res, next) => {
-  const { name, email, password, phoneNumber, height, weight, objective } =
-    req.body;
-  User.findOneAndUpdate(email, {
-    name,
-    password,
-    phoneNumber,
-    height,
-    weight,
-    objective,
-  })
-    .then((updatedUser) => {
-      // req.session.currentUser = updatedUser;
-      res.render("user/user-dashboard", { user: updatedUser });
+  const loggedUserId = req.session.currentUser._id;
+  const { name, password, phoneNumber, height, weight, objective } = req.body;
+  User.findByIdAndUpdate(
+    loggedUserId,
+    {
+      name,
+      password,
+      phoneNumber,
+      biometrics: {
+        height,
+        weight,
+      },
+      objective,
+    },
+    { new: true }
+  )
+    .then((updatedData) => {
+      req.session.currentUser = updatedData;
+      res.redirect("/user/user-dashboard");
     })
     .catch((err) => next(err));
 });
 
 //Update data form
 router.get("/data-update", (req, res, next) => {
-  res.render("user/data-update");
+  const loggedUser = req.session.currentUser;
+  User.findById(loggedUser._id)
+    .then((userData) => {
+      res.render("user/data-update", { userData });
+    })
+    .catch((err) => next(err));
 });
 
 router.post("/data-update", (req, res, next) => {
+  const loggedUserId = req.session.currentUser._id;
   const { height, weight, objective } = req.body;
-  User.findOneAndUpdate(email, {
-    height,
-    weight,
+  User.findByIdAndUpdate(loggedUserId, {
+    biometrics: {
+      height,
+      weight,
+    },
     objective,
   })
-    .then(() => {
-      res.render("user/user-dashboard");
+    .then((updatedData) => {
+      req.session.currentUser = updatedData;
+      res.redirect("/user/user-dashboard");
     })
     .catch((err) => next(err));
 });
@@ -100,32 +131,15 @@ router.post("/data-update", (req, res, next) => {
 router.get("/routine-details/:id", (req, res) => {
   Routine.findById(req.params.id)
     .then((routineDetails) => {
-      res.render("/routine-details", routineDetails);
+      res.render("user/routine-details", { routineDetails });
     })
     .catch((error) => next(error));
 });
 
-// Test user
-// User.create({
-//   name: "test1",
-//   email: "test1@gmail.com",
-//   password: 1234,
-//   phoneNumber: 1234,
-//   biometrics: { height: 1.68, weight: 56 },
-//   objective: "Improve Health",
-// });
-
-//Test routine
-// Routine.create({
-//   bodyPart: "shoulders",
-//   day: "2",
-//   exercises: [
-//     { name: "exercise1", repetitions: 2 },
-//     { name: "exercise2", repetitions: 4 },
-//   ],
-//   length: "45 min",
-//   difficulty: "Beginner",
-//   user: "645538547b45f8e137c0d118",
-// });
+//Logout
+router.get("/logout", (req, res) => {
+  req.session.destroy();
+  res.redirect("/");
+});
 
 module.exports = router;

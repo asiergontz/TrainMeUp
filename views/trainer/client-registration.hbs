@@ -1,0 +1,30 @@
+<div id="form">
+  <h2>Client registration</h2>
+  <form action="/trainer/client-registration" method="POST">
+
+    <label>
+      Name
+      <input type="text" name="name" placeholder="Your client's name" />
+    </label>
+    <br />
+    <label>
+      Email
+      <input type="email" name="email" placeholder="Your client's email" />
+    </label>
+    <br />
+    <label>
+      Password
+      <input
+        type="password"
+        name="password"
+        placeholder="Provisional password"
+      />
+    </label>
+    <br />
+    <button type="submit">Sign Up</button>
+
+    {{#if errormessage}}
+      <p class="error">{{errormessage}}</p>
+    {{/if}}
+  </form>
+</div>

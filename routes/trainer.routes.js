@@ -98,39 +98,15 @@ router.get("/client-details/:id", (req, res) => {
     //add routine//
 
     router.get("/client-details/:id/routine-new", (req, res, next) => {
-        res.render("trainer/routine-new");;
-  });
-
-
-  router.post("/client-details/:id/routine-new", (req, res, next) => {
-    const loggedTrainerId = req.session.currentUser._id
-    const {id} = req.params
-    const { bodyPart, day, exercises, length, difficulty } = req.body;
-
-    let trainer
-
-    Trainer.findOne( {loggedTrainerId })
-    .then(trainerFromDB =>{
-    trainer= trainerFromDB
-
-    let newRoutine = new Routine({loggedTrainerId, content})
-
-    newRoutine
-    .save()
-    .then(dbRoutine => {
-    
-    trainerFromDB.exercises.push(dbRoutine._id);
-
-    trainerFromDB
-    .save()
-    .then(updatedRoutine => resredirect(`/trainer/routine-client/${updatedRoutine._id}`))
-    })
-    })
-    .catch((err) => next(err));
+        const {id} = req.params
+        console.log("id", id)
+        User.findById(id)
+        .then((userData )=>{
+            console.log("userData",userData)
+        res.render("trainer/routine-new", {userData});
   })
-
-
-
+  .catch((err) => next(err));
+});
 
 
 //----------CLIENT-ROUTINE DETAILS-----------//

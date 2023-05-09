@@ -3,6 +3,10 @@
 <div id="form">
 <form action="/trainer/routine-new" method="POST">
 <label>
+    Client:
+    <input type="text" name="name" value="{{userData.name}}" />
+</label>
+<label>
     Body Part: 
     <input type="text" name="bodyPart" placeholder="Body Part" />
 </label>
@@ -26,6 +30,13 @@
     </select>
 </label>
 <br>
+<br>
+<fieldset>
+    <legend>Exercises</legend>
+    <input type="text" name="exercise" placeholder="Minutes" />
+</label>
+<br>
+
 <button type="submit">Create</button>
 </form>
 </div>

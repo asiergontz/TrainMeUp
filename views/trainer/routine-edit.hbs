@@ -1,0 +1,31 @@
+<h2>Edit the routine: {{routine._id}}</h2>
+
+<form action="/trainer/routine-edit" method="POST">
+
+<fieldset>
+    <label>Body Part: <input 
+    type="text"
+    name= "Body Part"
+    value= "{{routine.bodyPart}}"
+    /></label>
+<br>
+    <label>Day: <input 
+    type="number"
+    name= "day"
+    value= "{{routine.day}}"
+    /></label>
+<br>
+{{#each routine.exercises}}
+<label>Exercises: <input 
+    type=""
+    name= "day"
+    value= "{{routine.day}}"
+    /></label>
+{{/each}}
+
+
+</fieldset>
+</form>
+
+
+

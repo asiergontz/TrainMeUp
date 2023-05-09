@@ -76,12 +76,14 @@ router.get("/dashboard-trainer", (req, res, next) => {
 
 //---------CLIENT-DETAILS-----------//
 
-router.get("/client-details/:id", (req, res) => {
+router.get("/client-details/:id", (req, res,next) => {
+    const {id} = req.params
     User.findById(req.params.id)
-        .populate('routines')
       .then((clientDetails) => {
-        res.render("trainer/client-details", { clientDetails });
+        Routine.find({user: id }).then((userRoutines) => {
+        res.render("trainer/client-details", { routines: userRoutines, user: clientDetails });
       })
+    })
       .catch((error) => next(error));
   });
 
@@ -99,15 +101,20 @@ router.get("/client-details/:id", (req, res) => {
 
     router.get("/client-details/:id/routine-new", (req, res, next) => {
         const {id} = req.params
-        console.log("id", id)
         User.findById(id)
         .then((userData )=>{
-            console.log("userData",userData)
         res.render("trainer/routine-new", {userData});
   })
   .catch((err) => next(err));
 });
 
+    router.post("/routine-new", (req, res, next) => {
+        const loggedTrainer = req.session.currentUser;
+        const { bodyPart, day, name, repetitions, length, difficulty, _id } = req.body
+        Routine.create ({trainer:loggedTrainer, bodyPart, day, exercises: {name, repetitions}, length, difficulty, user:_id})
+        .then (() => res.redirect(`/trainer/client-details/${_id}`))
+        .catch((err) => next(err));
+    })
 
 //----------CLIENT-ROUTINE DETAILS-----------//
 
@@ -119,29 +126,27 @@ router.get("/routine-client/:id", (req, res) => {
       .catch((error) => next(error));
   });
 
-
-
-
-
   //edit routine//
 
   router.get('/routine-client/:id/edit', (req, res, next) => {
-    const { routineId } = req.params;
-   
-    Routine.findById(routineId)
-      .then(routineToEdit => {
-        res.render('trainer/routine-edit.hbs', { routine: routineToEdit });
+    const {id} = req.params;
+    Routine.findById(id)
+      .then((routineToEdit) => {
+        res.render('trainer/routine-edit.hbs', {routineToEdit});
       })
-      
       .catch(error => next(error));
   });
 
   router.post('/routine-client/:id/edit', (req, res, next) => {
     const {routineId} = req.params
-    const { bodyPart, day, exercise, length, difficulty } = req.body
+    const { bodyPart, day, exercises, length, difficulty } = req.body
 
-    Routine.findByIdAndUpdate (routineId, {bodyPart, day, exercise, length, difficulty}, {new:true})
-    .then( updatedRoutine => res.redirect(`/routine-client/${updatedRoutine.id}`))
+    Routine.findByIdAndUpdate (routineId, {bodyPart, day, exercises, length, difficulty}, {new:true})
+    console.log
+    .then((updatedRoutine) => {
+        res.redirect(`trainer/routine-client/${updatedRoutine.id}`)
+    })
+    console.log("routine to edit", updatedRoutine )
     .catch((err) => next(err))
   })
 

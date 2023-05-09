@@ -2,56 +2,51 @@
 
 <form action="/trainer/routine-edit" method="POST">
 
-<fieldset>
     <label>Body Part: <input 
     type="text"
     name= "bodyPart"
-    value= "{{routine.bodyPart}}"
+    value= "{{routineToEdit.bodyPart}}"
     /></label>
 <br>
     <label>Day: <input 
     type="number"
     name= "day"
-    value= "{{routine.day}}"
+    value= "{{routineToEdit.day}}"
     /></label>
 <br>
 
-{{#each routine.exercises}}
-<label>Name: <input 
+{{#each routineToEdit.exercises}}
+    <label>Name: <input 
     type="text"
     name= "name"
     value= "{{this.name}}"
     /></label>
 
-<label>Repetitions: <input 
+    <label>Repetitions: <input 
     type="number"
     name= "repetitions"
     value= "{{this.repetitions}}"
     /></label>
+    <br>
 {{/each}}
-
 <br>
 <label>
     Lenght: 
-    <input type="text" name="length" placeholder="Minutes" />
+    <input type="text" name="length" value="{{routineToEdit.length}}" />
 </label>
 <br>
 <label>
     Difficulty
-    <select name="difficulty">
+    <select name="difficulty" value="routineToEdit.difficulty">
     <option value="Beginner">Beginner</option>
     <option value="Intermediate">Intermediate</option>
     <option value="Advanced">Advanced</option>
     </select>
 </label>
 <br>
-<button type="submit">Create</button>
+<button type="submit">Edit routine</button>
 </form>
 </div>
-
-
-</fieldset>
-</form>
 
 
 

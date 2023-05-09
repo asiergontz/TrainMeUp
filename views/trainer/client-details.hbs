@@ -3,15 +3,15 @@
 <section id="personal-data">
   <h2>Personal information</h2>
   <ul>
-    <li>Name: {{clientDetails.name}}</li>
-    <li>Height: {{clientDetails.biometrics.height}}</li>
-    <li>Weight: {{clientDetails.biometrics.weight}}</li>
-    <li>Objective: {{clientDetails.objective}}</li>
+    <li>Name: {{user.name}}</li>
+    <li>Height: {{user.biometrics.height}}</li>
+    <li>Weight: {{user.biometrics.weight}}</li>
+    <li>Objective: {{user.objective}}</li>
   </ul>
 
   <h2>Routines</h2>
 
-{{#each clientDetails.routines}}
+{{#each routines}}
  
     <li>Day: {{this.day}}</li> 
     <li>Body part: {{this.bodyPart}}</li>
@@ -22,4 +22,4 @@
 {{/each}}
 
 
-<a href="/trainer/client-details/{{clientDetails._id}}/routine-new">Add new routine</a>
+<a href="/trainer/client-details/{{user._id}}/routine-new">Add new routine</a>

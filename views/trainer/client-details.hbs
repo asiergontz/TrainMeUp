@@ -16,8 +16,10 @@
     <li>Day: {{this.day}}</li> 
     <li>Body part: {{this.bodyPart}}</li>
     <a href="/trainer/routine-client/{{this._id}}">View details</a>
-    <form action="/trainer/client-details/{{_id}}/delete" method="POST">
+    <form action="/trainer/client-details/{{this._id}}/delete" method="POST">
       <button>Delete</button>
     </form> 
-
 {{/each}}
+
+
+<a href="/trainer/client-details/{{clientDetails._id}}/routine-new">Add new routine</a>

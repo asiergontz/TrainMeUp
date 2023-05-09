@@ -1,0 +1,31 @@
+<h1>New Routine</h1>
+
+<div id="form">
+<form action="/trainer/routine-new" method="POST">
+<label>
+    Body Part: 
+    <input type="text" name="bodyPart" placeholder="Body Part" />
+</label>
+<br>
+<label>
+    Day: 
+    <input type="number" name="day" placeholder="Day" />
+</label>
+<br>
+<label>
+    Lenght: 
+    <input type="text" name="length" placeholder="Minutes" />
+</label>
+<br>
+<label>
+    Difficulty
+    <select name="difficulty">
+    <option value="Beginner">Beginner</option>
+    <option value="Intermediate">Intermediate</option>
+    <option value="Advanced">Advanced</option>
+    </select>
+</label>
+<br>
+<button type="submit">Create</button>
+</form>
+</div>

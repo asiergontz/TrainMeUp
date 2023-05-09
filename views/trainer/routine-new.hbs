@@ -4,7 +4,11 @@
 <form action="/trainer/routine-new" method="POST">
 <label>
     Client:
-    <input type="text" name="name" value="{{userData.name}}" />
+    <input type="text" name="user" value="{{userData.name}}" />
+</label>
+<label>
+    ClientId:
+    <input type="text" name="_id" value="{{userData._id}}" />
 </label>
 <label>
     Body Part: 
@@ -33,7 +37,8 @@
 <br>
 <fieldset>
     <legend>Exercises</legend>
-    <input type="text" name="exercise" placeholder="Minutes" />
+    <input type="text" name="name" placeholder="Name" />
+    <input type="text" name="repetitions" placeholder="Repetitions" />
 </label>
 <br>
 

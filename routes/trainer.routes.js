@@ -10,7 +10,7 @@ const Routine = require("../models/Routine.model");
 
 
 
-// LOGIN
+//------------LOGIN----------//
 router.get("/login-trainer", (req, res, next) => {
     res.render("auth/login-trainer");
   });
@@ -57,7 +57,7 @@ router.post("/login-trainer", (req, res, next) => {
   });
 
 
-//DASHBOARD TRAINER
+//----------DASHBOARD TRAINER--------//
 
 router.get("/dashboard-trainer", (req, res, next) => {
     const loggedTrainer = req.session.currentUser
@@ -74,7 +74,7 @@ router.get("/dashboard-trainer", (req, res, next) => {
     });
 
 
-//CLIENT-DETAILS//
+//---------CLIENT-DETAILS-----------//
 
 router.get("/client-details/:id", (req, res) => {
     User.findById(req.params.id)
@@ -95,8 +95,45 @@ router.get("/client-details/:id", (req, res) => {
       .catch(error => next(error));
   });
 
+    //add routine//
 
-//CLIENT-ROUTINE DETAILS//
+    router.get("/client-details/:id/routine-new", (req, res, next) => {
+        res.render("trainer/routine-new");;
+  });
+
+
+  router.post("/client-details/:id/routine-new", (req, res, next) => {
+    const loggedTrainerId = req.session.currentUser._id
+    const {id} = req.params
+    const { bodyPart, day, exercises, length, difficulty } = req.body;
+
+    let trainer
+
+    Trainer.findOne( {loggedTrainerId })
+    .then(trainerFromDB =>{
+    trainer= trainerFromDB
+
+    let newRoutine = new Routine({loggedTrainerId, content})
+
+    newRoutine
+    .save()
+    .then(dbRoutine => {
+    
+    trainerFromDB.exercises.push(dbRoutine._id);
+
+    trainerFromDB
+    .save()
+    .then(updatedRoutine => resredirect(`/trainer/routine-client/${updatedRoutine._id}`))
+    })
+    })
+    .catch((err) => next(err));
+  })
+
+
+
+
+
+//----------CLIENT-ROUTINE DETAILS-----------//
 
 router.get("/routine-client/:id", (req, res) => {
     Routine.findById(req.params.id)
@@ -106,9 +143,13 @@ router.get("/routine-client/:id", (req, res) => {
       .catch((error) => next(error));
   });
 
+
+
+
+
   //edit routine//
 
-  router.get('/routine-client/:Id/edit', (req, res, next) => {
+  router.get('/routine-client/:id/edit', (req, res, next) => {
     const { routineId } = req.params;
    
     Routine.findById(routineId)
@@ -119,18 +160,18 @@ router.get("/routine-client/:id", (req, res) => {
       .catch(error => next(error));
   });
 
-  router.post('/routine-client/:Id/edit', (req, res, next) => {
+  router.post('/routine-client/:id/edit', (req, res, next) => {
     const {routineId} = req.params
     const { bodyPart, day, exercise, length, difficulty } = req.body
 
     Routine.findByIdAndUpdate (routineId, {bodyPart, day, exercise, length, difficulty}, {new:true})
-    .then( updatedRoutine => res.redirect('/routine-client/ ${updatedRoutine.id}'))
+    .then( updatedRoutine => res.redirect(`/routine-client/${updatedRoutine.id}`))
     .catch((err) => next(err))
   })
 
 
 
- //CLIENT REGISTRATION
+ //----------CLIENT REGISTRATION---------//
 
 router.get("/client-registration", (req, res, next) => {
     res.render("trainer/client-registration");
@@ -169,7 +210,7 @@ router.get("/client-registration", (req, res, next) => {
       .catch((err) => next(err));
   });
 
-  //SIGN UP TRAINERS
+  //--------SIGN UP TRAINERS---------//
 router.get("/signup-trainer", (req, res, next) => {
     res.render("auth/signup-trainer");
   });

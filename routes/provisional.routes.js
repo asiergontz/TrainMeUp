@@ -93,4 +93,45 @@ router.post("/client-registration", (req, res, next) => {
     .catch((err) => next(err));
 });
 
+//----------CLIENT REGISTRATION---------//
+
+router.get("/client-registration", (req, res, next) => {
+  res.render("trainer/client-registration");
+});
+
+router.post("/client-registration", (req, res, next) => {
+  const trainerID = req.session.currentUser;
+  const { name, email, password } = req.body;
+  if (!name || !email || !password) {
+    res.status(400).render("trainer/client-registration", {
+      errormessage:
+        "All fields are mandatory. Please provide all requested fields.",
+    });
+    return;
+  }
+  User.findOne({ email }).then((existingUser) => {
+    if (existingUser) {
+      res.status(400).render("trainer/client-registration", {
+        errormessage: "This email already exists. Please provide a new email.",
+      });
+      return;
+    }
+  });
+  bcryptjs
+    .genSalt(saltRounds)
+    .then((salt) => bcryptjs.hash(password, salt))
+    .then((hashedPassword) => {
+      return User.create({
+        name,
+        email,
+        password: hashedPassword,
+        trainer: trainerID,
+      });
+    })
+    .then(() => {
+      res.redirect("/trainer/dashboard-trainer");
+    })
+    .catch((err) => next(err));
+});
+
 module.exports = router;

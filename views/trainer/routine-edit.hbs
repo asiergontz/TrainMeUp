@@ -1,4 +1,4 @@
-<h2>Edit the routine: {{routine._id}}</h2>
+<h2>Edit the routine: {{routineToEdit.id}}</h2>
 
 <form action="/trainer/routine-edit" method="POST">
 
@@ -9,12 +9,12 @@
     /></label>
 <br>
     <label>Day: <input 
-    type="number"
+    type="text"
     name= "day"
     value= "{{routineToEdit.day}}"
     /></label>
 <br>
-
+Exercises:
 {{#each routineToEdit.exercises}}
     <label>Name: <input 
     type="text"
@@ -32,17 +32,20 @@
 <br>
 <label>
     Lenght: 
-    <input type="text" name="length" value="{{routineToEdit.length}}" />
+    <input type="text" 
+    name="length" 
+    value="{{routineToEdit.length}}" />
 </label>
 <br>
-<label>
+<!--<label>
     Difficulty
-    <select name="difficulty" value="routineToEdit.difficulty">
+    <select name="difficulty" >
+    <option>{{routineToEdit.difficulty}}</option>
     <option value="Beginner">Beginner</option>
     <option value="Intermediate">Intermediate</option>
     <option value="Advanced">Advanced</option>
     </select>
-</label>
+</label> -->
 <br>
 <button type="submit">Edit routine</button>
 </form>

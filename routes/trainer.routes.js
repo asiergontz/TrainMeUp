@@ -89,11 +89,10 @@ router.get("/client-details/:id", (req, res,next) => {
 
   //delete routine//
 
-  router.post('/client-details/:id/delete', (req, res, next) => {
-    const { routineId } = req.params.id;
-    Routine.findByIdAndDelete(routineId)
-        .populate('routines')
-      .then(() => res.render('trainer/client-details/:id'))
+  router.post('/routine-client/:id/delete', (req, res, next) => {
+    const {id} = req.params;
+    Routine.findByIdAndDelete(id)
+      .then(() => res.redirect('/'))
       .catch(error => next(error));
   });
 
@@ -137,16 +136,12 @@ router.get("/routine-client/:id", (req, res) => {
       .catch(error => next(error));
   });
 
-  router.post('/routine-client/:id/edit', (req, res, next) => {
-    const {routineId} = req.params
-    const { bodyPart, day, exercises, length, difficulty } = req.body
-
-    Routine.findByIdAndUpdate (routineId, {bodyPart, day, exercises, length, difficulty}, {new:true})
-    console.log
-    .then((updatedRoutine) => {
-        res.redirect(`trainer/routine-client/${updatedRoutine.id}`)
+  router.post('/routine-edit', (req, res, next) => {
+    const { bodyPart, day, name , repetitions, length, difficulty, _id} = req.body
+    Routine.findOneAndUpdate ({bodyPart, day, exercises: {name, repetitions}, length, difficulty, _id}, {new:true})
+    .then(() => {
+        res.redirect(`/`)
     })
-    console.log("routine to edit", updatedRoutine )
     .catch((err) => next(err))
   })
 

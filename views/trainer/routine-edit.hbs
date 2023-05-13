@@ -1,6 +1,12 @@
 <h2>Edit the routine: {{routineToEdit.id}}</h2>
 
 <form action="/trainer/routine-edit/{{routineToEdit.id}}" method="POST">
+    <label>
+      Name:
+    <input type="text" 
+    name="routineName" 
+    value="{{routineToEdit.routineName}}"/>
+    </label>
 
     <label>Body Part: <input 
     type="text"

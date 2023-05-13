@@ -111,14 +111,14 @@ router.get("/client-details/:id/routine-new", setUserRole, (req, res, next) => {
 
 router.post("/routine-new", (req, res, next) => {
   const loggedTrainer = req.session.currentUser;
-  const { bodyPart, day, length, difficulty, _id } = req.body;
+  const { routineName,bodyPart, day, length, difficulty, _id } = req.body;
   const exercises = [];
   req.body["exercises[name][]"].forEach((name, index) => {
     const repetitions = req.body["exercises[repetitions][]"][index];
     exercises.push({ name, repetitions });
   });
-
   Routine.create({
+    routineName,
     trainer: loggedTrainer,
     bodyPart,
     day,
@@ -156,7 +156,7 @@ router.get("/routine-client/:id/edit", setUserRole, (req, res, next) => {
 
 router.post("/routine-edit/:id", (req, res, next) => {
   const routineId = req.params.id;
-  const { bodyPart, day, length, difficulty } = req.body;
+  const { routineName, bodyPart, day, length, difficulty } = req.body;
   const exercises = [];
   req.body["exercises[name][]"].forEach((name, index) => {
     const repetitions = req.body["exercises[repetitions][]"][index];
@@ -164,14 +164,17 @@ router.post("/routine-edit/:id", (req, res, next) => {
   });
   Routine.findByIdAndUpdate(
     req.params.id,
-    { bodyPart, day, length, exercises, difficulty },
+    { routineName, bodyPart, day, length, exercises, difficulty },
     { new: true }
   )
     .then(() => res.redirect(`/trainer/routine-client/${routineId}`))
     .catch((err) => next(err));
 });
 
+
+  
 //Add a comment
+
 
 router.post("/routine-client/:id/create-comment", async (req, res, next) => {
   const { comments } = req.body;
@@ -183,6 +186,29 @@ router.post("/routine-client/:id/create-comment", async (req, res, next) => {
     .catch((err) => next(err));
 });
 
+router.post('trainer/routine-client/:id/create-comment', (req, res, next) => {
+            const loggedTrainer = req.session.currentUser;
+            const { bodyPart, day, length, difficulty, _id } = req.body;
+            const comments = [];
+            req.body["comments[author][]"].forEach((author, index) => {
+              const content = req.body["comments[content][]"][index];
+              exercises.push({ author, content });
+            });
+          
+            Routine.create({
+              trainer: loggedTrainer,
+              bodyPart,
+              day,
+              exercises,
+              length,
+              difficulty,
+              user: _id,
+            })
+              .then(() => {
+                res.redirect(`/trainer/client-details/${_id}`);
+              })
+              .catch((err) => next(err));
+          });
 //----------CLIENT REGISTRATION---------//
 
 router.get("/client-registration", setUserRole, (req, res, next) => {

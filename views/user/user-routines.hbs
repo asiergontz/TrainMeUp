@@ -2,7 +2,7 @@
 {{#if routines}}
   <ul>
     {{#each routines}}
-      <li>{{this.bodyPart}} - {{this.length}}</li>
+      <li>{{this.routineName}} - {{this.bodyPart}} - {{this.length}}</li>
       <a href="/user/routine-details/{{this._id}}">View details</a>
     {{/each}}
   </ul>

@@ -1,8 +1,25 @@
-module.exports = (req, res, next) => {
-  // checks if the user is logged in when trying to access a specific page
-  if (!req.session.currentUser) {
-    return res.redirect("/auth/login");
+const userLoggedIn = (req, res, next) => {
+  if (req.session.currentUser.role) {
+    res.redirect("/user/user-dashboard");
+  } else {
+    next();
   }
-
-  next();
 };
+
+// const userLoggedIn = (req, res, next) => {
+//   if (req.session.currentUser.role === "user") {
+//     res.redirect("/user/user-dashboard");
+//   } else {
+//     next();
+//   }
+// };
+
+// const trainerLoggedIn = (req, res, next) => {
+//   if (req.session.currentUser.role === "trainer") {
+//     res.redirect("/trainer/dashboard-trainer");
+//   } else {
+//     next();
+//   }
+// };
+
+module.exports = userLoggedIn;

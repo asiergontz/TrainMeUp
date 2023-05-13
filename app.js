@@ -13,6 +13,9 @@ const express = require("express");
 // https://www.npmjs.com/package/hbs
 const hbs = require("hbs");
 hbs.registerPartials(__dirname + "/views/partials");
+hbs.registerHelper("eq", function (a, b) {
+  return a === b;
+});
 
 const app = express();
 

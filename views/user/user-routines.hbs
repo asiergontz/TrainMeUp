@@ -1,0 +1,11 @@
+<h2>Routines</h2>
+{{#if routines}}
+  <ul>
+    {{#each routines}}
+      <li>{{this.bodyPart}} - {{this.length}}</li>
+      <a href="/user/routine-details/{{this._id}}">View details</a>
+    {{/each}}
+  </ul>
+{{else}}
+  <p>You don't have any routines yet.</p>
+{{/if}}

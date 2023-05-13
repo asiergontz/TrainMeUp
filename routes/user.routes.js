@@ -8,8 +8,11 @@ const User = require("../models/User.model");
 const Routine = require("../models/Routine.model");
 const Trainer = require("../models/Trainer.model");
 
+const setUserRole = require("../middleware/userRole");
+const userLoggedIn = require("../middleware/isLoggedIn");
+
 //Log in routes
-router.get("/login-user", (req, res, next) => {
+router.get("/login-user", userLoggedIn, (req, res, next) => {
   res.render("auth/login-user");
 });
 
@@ -51,7 +54,8 @@ router.post("/login-user", (req, res, next) => {
 });
 
 // DASHBOARD
-router.get("/user-dashboard", (req, res, next) => {
+router.get("/user-dashboard", setUserRole, (req, res, next) => {
+  console.log(req.session.currentUser.role);
   const loggedUser = req.session.currentUser;
   User.findById(loggedUser._id)
     .then((loggedUserData) => {
@@ -100,7 +104,7 @@ router.post("/data-create", (req, res, next) => {
 });
 
 //Update data form
-router.get("/data-update", (req, res, next) => {
+router.get("/data-update", setUserRole, (req, res, next) => {
   const loggedUser = req.session.currentUser;
   User.findById(loggedUser._id)
     .then((userData) => {
@@ -126,8 +130,23 @@ router.post("/data-update", (req, res, next) => {
     .catch((err) => next(err));
 });
 
+//User routines
+router.get("/user-routines", setUserRole, (req, res, next) => {
+  const loggedUser = req.session.currentUser;
+  User.findById(loggedUser._id)
+    .then((loggedUserData) => {
+      Routine.find({ user: loggedUser._id }).then((routines) => {
+        res.render("user/user-routines", {
+          user: loggedUserData,
+          routines: routines,
+        });
+      });
+    })
+    .catch((err) => next(err));
+});
+
 //Routine details
-router.get("/routine-details/:id", (req, res) => {
+router.get("/routine-details/:id", setUserRole, (req, res) => {
   Routine.findById(req.params.id)
     .then((routineDetails) => {
       res.render("user/routine-details", { routineDetails });

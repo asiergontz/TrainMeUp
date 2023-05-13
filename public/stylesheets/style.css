@@ -10,3 +10,12 @@ a {
 h1 {
   color: 15px;
 }
+
+nav ul {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+nav ul li {
+  list-style-type: none;
+}

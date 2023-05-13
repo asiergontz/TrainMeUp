@@ -111,9 +111,10 @@ router.get("/client-details/:id/routine-new", setUserRole, (req, res, next) => {
 
 router.post("/routine-new", (req, res, next) => {
   const loggedTrainer = req.session.currentUser;
-  const { bodyPart, day, name, repetitions, length, difficulty, _id } =
+  const { routineName, bodyPart, day, name, repetitions, length, difficulty, _id } =
     req.body;
   Routine.create({
+    routineName,
     trainer: loggedTrainer,
     bodyPart,
     day,
@@ -149,10 +150,10 @@ router.get("/routine-client/:id/edit", setUserRole, (req, res, next) => {
 
 
 router.post("/routine-edit/:id", (req, res, next) => {
-  const { bodyPart, day, name, repetitions, length, difficulty } = req.body;
+  const {routineName, bodyPart, day, name, repetitions, length, difficulty } = req.body;
   Routine.findByIdAndUpdate(
     req.params.id,
-    { bodyPart, day, length, exercises: { name, repetitions }, difficulty },
+    { routineName, bodyPart, day, length, exercises: { name, repetitions }, difficulty },
     { new: true }
   )
     .then(() => res.redirect(`/`))
@@ -161,15 +162,63 @@ router.post("/routine-edit/:id", (req, res, next) => {
 
   //Add a comment
 
-  router.post('trainer/routine-client/:id/create-comment', (req, res, next) => {
+  /*router.post('trainer/routine-client/:id/create-comment', (req, res, next) => {
     const { bodyPart, day, name , repetitions, length, difficulty, comments} = req.body
     Routine.findByIdAndUpdate (req.params.id, { bodyPart, day,length, exercises: {name, repetitions}, difficulty, comments}, {new:true})
     .then(() =>res.redirect(`trainer/routine-client/${req.params.id}`))
     .catch((err) => next(err))
-  })
+  })*/
+
+  /*router.post('trainer/routine-client/:id/create-comment', (req, res, next) => {
+    const {id} = req.params
+    const { routineName, bodyPart, day, name , repetitions, length, difficulty, comments} = req.body
+  Routine.findById(id)
+      .then(dbRoutine => {
+        let newComment;
+ 
+        newComment = new Comment({ author: user._id, content })
+ 
+        newComment
+        .save()
+        .then(dbComment => {
+ 
+        dbRoutine.comments.push(dbComment._id);
+ 
+        dbRoutine
+            .save()
+            .then(updatedPost => res.redirect(`/`))
+        });
+      });
+    })
+    .catch(err => {
+      console.log(`Error while creating the comment: ${err}`);
+      next(err);
+    });*/
 
 
-
+router.post('trainer/routine-client/:id/create-comment', (req, res, next) => {
+            const loggedTrainer = req.session.currentUser;
+            const { bodyPart, day, length, difficulty, _id } = req.body;
+            const comments = [];
+            req.body["comments[author][]"].forEach((author, index) => {
+              const content = req.body["comments[content][]"][index];
+              exercises.push({ author, content });
+            });
+          
+            Routine.create({
+              trainer: loggedTrainer,
+              bodyPart,
+              day,
+              exercises,
+              length,
+              difficulty,
+              user: _id,
+            })
+              .then(() => {
+                res.redirect(`/trainer/client-details/${_id}`);
+              })
+              .catch((err) => next(err));
+          });
 //----------CLIENT REGISTRATION---------//
 
 router.get("/client-registration", setUserRole, (req, res, next) => {

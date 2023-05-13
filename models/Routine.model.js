@@ -1,6 +1,11 @@
 const { Schema, model } = require("mongoose");
 
 const routineSchema = new Schema({
+  routineName: {
+    type: String,
+    required: true,
+  },
+
   bodyPart: {
     type: String,
     required: true,
@@ -26,7 +31,12 @@ const routineSchema = new Schema({
 
     required: true,
   },
-  comments: [String],
+  comments: [
+    {
+    author: String,
+    content: String
+  }
+],
   trainer: { type: Schema.Types.ObjectId, ref: "Trainer" },
   user: { type: Schema.Types.ObjectId, ref: "User" },
 });

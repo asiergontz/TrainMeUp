@@ -1,5 +1,5 @@
 const userLoggedIn = (req, res, next) => {
-  if (req.session.currentUser.role) {
+  if (req.session.currentUser) {
     res.redirect("/user/user-dashboard");
   } else {
     next();

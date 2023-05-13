@@ -20,7 +20,13 @@
   <form action="/trainer/routine-client/{{routineDetails._id}}/delete" method="POST">
   <button>Delete</button>
   <br>
-  <form action="trainer/routine-client/{{routineDetails._id}}/create-comment" method="POST">
+  <h2>Comments</h2>
+  <ul>
+    {{#each routineDetails.comments}}
+      <li>Name:{{this}}</li>
+    {{/each}}
+  </ul>
+  <form action="/trainer/routine-client/{{routineDetails._id}}/create-comment" method="POST">
   <textarea name="comments" cols="30" rows="10"></textarea>
   <button type="submit">Add comment</button>
   </form>

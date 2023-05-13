@@ -18,13 +18,13 @@ Exercises:
 {{#each routineToEdit.exercises}}
     <label>Name: <input 
     type="text"
-    name= "name"
+    name= "exercises[name][]"
     value= "{{this.name}}"
     /></label>
 
     <label>Repetitions: <input 
     type="number"
-    name= "repetitions"
+    name= "exercises[repetitions][]"
     value= "{{this.repetitions}}"
     /></label>
     <br>

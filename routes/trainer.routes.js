@@ -91,12 +91,12 @@ router.get("/client-details/:id", (req, res, next) => {
 
 //delete routine//
 
-router.post("/routine-client/:id/delete", (req, res, next) => {
+/* router.post("/routine-client/:id/delete", (req, res, next) => {
   const { id } = req.params;
   Routine.findByIdAndDelete(id)
     .then(() => res.redirect("/"))
     .catch((error) => next(error));
-});
+}); */
 
 //add routine//
 
@@ -176,39 +176,38 @@ router.post("/routine-edit/:id", (req, res, next) => {
 //Add a comment
 
 
-router.post("/routine-client/:id/create-comment", async (req, res, next) => {
+/*router.post("/routine-client/:id/create-comment", async (req, res, next) => {
   const { comments } = req.body;
-  const currentRoutine = await Routine.findById(req.params.id);
+  const {id} = req.params
+  const currentRoutine = await Routine.findById(id);
+  console.log("touineskjf", currentRoutine)
   currentRoutine.comments.push(comments);
   console.log("Current routine", currentRoutine);
-  Routine.findByIdAndUpdate(req.params.id, currentRoutine, { new: true })
-    .then(() => res.redirect(`trainer/routine-client/${req.params.id}`))
+  Routine.findByIdAndUpdate(id, currentRoutine, {new:true})
+    .then(() => res.redirect(`/trainer/routine-client/${id}`))
     .catch((err) => next(err));
-});
+});*/
 
-router.post('trainer/routine-client/:id/create-comment', (req, res, next) => {
-            const loggedTrainer = req.session.currentUser;
-            const { bodyPart, day, length, difficulty, _id } = req.body;
-            const comments = [];
-            req.body["comments[author][]"].forEach((author, index) => {
-              const content = req.body["comments[content][]"][index];
-              exercises.push({ author, content });
-            });
-          
-            Routine.create({
-              trainer: loggedTrainer,
-              bodyPart,
-              day,
-              exercises,
-              length,
-              difficulty,
-              user: _id,
-            })
-              .then(() => {
-                res.redirect(`/trainer/client-details/${_id}`);
-              })
-              .catch((err) => next(err));
-          });
+/*router.post("/routine-client/:id/create-comment", async (req, res, next) => {
+    const { author, content } = req.body;
+    const {id} = req.params
+    Routine.findByIdAndUpdate(id, {comments:{author, content}}, {new:true})
+      .then(() => res.redirect(`/trainer/routine-client/${id}`))
+      .catch((err) => next(err));
+})*/
+
+router.post("/routine-client/:id/create-comment", async (req, res, next) => {
+    const { author, content } = req.body;
+    const {id} = req.params
+    const currentRoutine = await Routine.findById(id);
+    console.log("touineskjf", currentRoutine)
+    currentRoutine.comments.push({author, content});
+    console.log("Current routine", currentRoutine);
+    Routine.findByIdAndUpdate(id, currentRoutine, {new:true})
+      .then(() => res.redirect(`/trainer/routine-client/${id}`))
+      .catch((err) => next(err));
+  });
+
 //----------CLIENT REGISTRATION---------//
 
 router.get("/client-registration", setUserRole, (req, res, next) => {

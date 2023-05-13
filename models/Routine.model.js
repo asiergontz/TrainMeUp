@@ -32,7 +32,7 @@ const routineSchema = new Schema({
     required: true,
   },
   comments: [
-    {
+   {
     author: String,
     content: String
   }

@@ -18,18 +18,25 @@
     {{/each}}
   </ul>
   <a href="/trainer/routine-client/{{routineDetails._id}}/edit">Edit Routine</a>
-  <form action="/trainer/routine-client/{{routineDetails._id}}/delete" method="POST">
-  <button>Delete</button>
+  <a href="/trainer/routine-client/{{routineDetails._id}}/delete"> Delete Routine</a>
+   <!-- <form action="/trainer/routine-client/{{routineDetails._id}}/delete" method="POST">
+  <button>Delete</button> -->
   <br>
 
   <h2>Comments</h2>
   <ul>
     {{#each routineDetails.comments}}
-      <li>Name:{{this}}</li>
+      <li>Author:{{this.author}}</li>
+      <li>{{this.content}}</li>
     {{/each}}
   </ul>
+
   <form action="/trainer/routine-client/{{routineDetails._id}}/create-comment" method="POST">
-  <textarea name="comments" cols="30" rows="10"></textarea>
+  <textarea name="content" cols="30" rows="10"></textarea>
+  <br>
+  <label>Author:
+    <input type="text" name="author"/>
+  </label>
   <button type="submit">Add comment</button>
   </form>
 </ul>

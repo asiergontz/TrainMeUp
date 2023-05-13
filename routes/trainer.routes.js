@@ -143,6 +143,15 @@ router.get("/routine-client/:id", (req, res) => {
     .catch((err) => next(err))
   })
 
+  //Add a comment
+
+  router.post('trainer/routine-client/:id/create-comment', (req, res, next) => {
+    const { bodyPart, day, name , repetitions, length, difficulty, comments} = req.body
+    Routine.findByIdAndUpdate (req.params.id, { bodyPart, day,length, exercises: {name, repetitions}, difficulty, comments}, {new:true})
+    .then(() =>res.redirect(`trainer/routine-client/${req.params.id}`))
+    .catch((err) => next(err))
+  })
+
 
 
  //----------CLIENT REGISTRATION---------//

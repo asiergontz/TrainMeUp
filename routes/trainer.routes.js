@@ -147,6 +147,7 @@ router.get("/routine-client/:id/edit", setUserRole, (req, res, next) => {
     .catch((error) => next(error));
 });
 
+
 router.post("/routine-edit/:id", (req, res, next) => {
   const { bodyPart, day, name, repetitions, length, difficulty } = req.body;
   Routine.findByIdAndUpdate(
@@ -157,6 +158,17 @@ router.post("/routine-edit/:id", (req, res, next) => {
     .then(() => res.redirect(`/`))
     .catch((err) => next(err));
 });
+
+  //Add a comment
+
+  router.post('trainer/routine-client/:id/create-comment', (req, res, next) => {
+    const { bodyPart, day, name , repetitions, length, difficulty, comments} = req.body
+    Routine.findByIdAndUpdate (req.params.id, { bodyPart, day,length, exercises: {name, repetitions}, difficulty, comments}, {new:true})
+    .then(() =>res.redirect(`trainer/routine-client/${req.params.id}`))
+    .catch((err) => next(err))
+  })
+
+
 
 //----------CLIENT REGISTRATION---------//
 

@@ -28,6 +28,10 @@ const userSchema = new Schema({
     type: String,
     enum: ["Weight Loss", "Improve Health", "Gain weight"],
   },
+  role: {
+    type: String,
+    default: "user",
+  },
   trainer: { type: Schema.Types.ObjectId, ref: "Trainer" },
   routines: [{ type: Schema.Types.ObjectId, ref: "Routine" }],
 });

@@ -20,6 +20,10 @@ const trainerSchema = new Schema({
     type: String,
     required: true,
   },
+  role: {
+    type: String,
+    default: "trainer",
+  },
   clients: [{ type: Schema.Types.ObjectId, ref: "User" }],
   routines: [{ type: Schema.Types.ObjectId, ref: "Routine" }],
 });

@@ -1,4 +1,16 @@
 <nav>
-  <a href="/user/logout">Log out</a>
+  <ul>
+    <li><a href="/">Home</a></li>
+    {{#if (eq userRole "user")}}
+      <li><a href="/user/user-dashboard">User Dashboard</a></li>
+      <li><a href="/user/user-routines">My routines</a></li>
+      <li><a href="/user/data-update">Update my data</a></li>
+    {{else if (eq userRole "trainer")}}
+      <li><a href="/trainer/dashboard-trainer">Trainer Dashboard</a></li>
+      <li><a href="/trainer/dashboard-trainer">My Clients</a></li>
+      <li><a href="/trainer/client-registration">Register client</a></li>
 
+    {{/if}}
+    <li><a href="/user/logout" class="logout-btn">Log out</a></li>
+  </ul>
 </nav>

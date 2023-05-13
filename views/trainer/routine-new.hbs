@@ -1,47 +1,57 @@
 <h1>New Routine</h1>
 
 <div id="form">
-<form action="/trainer/routine-new" method="POST">
-<label>
-    Client:
-    <input type="text" name="user" value="{{userData.name}}" />
-</label>
-<label>
-    ClientId:
-    <input type="text" name="_id" value="{{userData._id}}" />
-</label>
-<label>
-    Body Part: 
-    <input type="text" name="bodyPart" placeholder="Body Part" />
-</label>
-<br>
-<label>
-    Day: 
-    <input type="number" name="day" placeholder="Day" />
-</label>
-<br>
-<label>
-    Lenght: 
-    <input type="text" name="length" placeholder="Minutes" />
-</label>
-<br>
-<label>
-    Difficulty
-    <select name="difficulty">
-    <option value="Beginner">Beginner</option>
-    <option value="Intermediate">Intermediate</option>
-    <option value="Advanced">Advanced</option>
-    </select>
-</label>
-<br>
-<br>
-<fieldset>
-    <legend>Exercises</legend>
-    <input type="text" name="name" placeholder="Name" />
-    <input type="text" name="repetitions" placeholder="Repetitions" />
-</label>
-<br>
+  <form action="/trainer/routine-new" method="POST">
+    <label>
+      Client:
+      <input type="text" name="user" value="{{userData.name}}" />
+    </label>
+    <label>
+      ClientId:
+      <input type="text" name="_id" value="{{userData._id}}" />
+    </label>
+    <label>
+      Body Part:
+      <input type="text" name="bodyPart" placeholder="Body Part" />
+    </label>
+    <br />
+    <label>
+      Day:
+      <input type="number" name="day" placeholder="Day" />
+    </label>
+    <br />
+    <label>
+      Lenght:
+      <input type="text" name="length" placeholder="Minutes" />
+    </label>
+    <br />
+    <label>
+      Difficulty
+      <select name="difficulty">
+        <option value="Beginner">Beginner</option>
+        <option value="Intermediate">Intermediate</option>
+        <option value="Advanced">Advanced</option>
+      </select>
+    </label>
+    <br />
+    <br />
+    <fieldset>
+      <legend>Exercises</legend>
+      <div id="exercises-container">
+        <div class="exercise-field">
+          <input type="text" name="exercises[name][]" placeholder="Name" />
+          <input
+            type="text"
+            name="exercises[repetitions][]"
+            placeholder="Repetitions"
+          />
+          <button type="button" class="remove-exercise">Remove</button>
+        </div>
+      </div>
+      <button type="button" id="add-exercise">Add Exercise</button>
+    </fieldset>
+    <br />
 
-<button type="submit">Create</button>
-</form>
+    <button type="submit">Create</button>
+  </form>
 </div>

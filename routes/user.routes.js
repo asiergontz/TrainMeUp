@@ -9,10 +9,10 @@ const Routine = require("../models/Routine.model");
 const Trainer = require("../models/Trainer.model");
 
 const setUserRole = require("../middleware/userRole");
-const userLoggedIn = require("../middleware/isLoggedIn");
+// const { userLoggedIn, trainerLoggedIn } = require("../middleware/isLoggedIn");
 
-//Log in routes
-router.get("/login-user", userLoggedIn, (req, res, next) => {
+//------------LOG IN USER----------//
+router.get("/login-user", (req, res, next) => {
   res.render("auth/login-user");
 });
 
@@ -53,9 +53,8 @@ router.post("/login-user", (req, res, next) => {
     .catch((error) => next(error));
 });
 
-// DASHBOARD
+//------------USER DASHBOARD----------//
 router.get("/user-dashboard", setUserRole, (req, res, next) => {
-  console.log(req.session.currentUser.role);
   const loggedUser = req.session.currentUser;
   User.findById(loggedUser._id)
     .then((loggedUserData) => {
@@ -69,7 +68,7 @@ router.get("/user-dashboard", setUserRole, (req, res, next) => {
     .catch((err) => next(err));
 });
 
-//Complete data form (First time)
+//------------CREATE USER DATA----------//
 router.get("/data-create", (req, res, next) => {
   const loggedUser = req.session.currentUser;
   User.findById(loggedUser._id)
@@ -103,7 +102,7 @@ router.post("/data-create", (req, res, next) => {
     .catch((err) => next(err));
 });
 
-//Update data form
+//------------UPDATE USER DATA----------//
 router.get("/data-update", setUserRole, (req, res, next) => {
   const loggedUser = req.session.currentUser;
   User.findById(loggedUser._id)
@@ -130,7 +129,7 @@ router.post("/data-update", (req, res, next) => {
     .catch((err) => next(err));
 });
 
-//User routines
+//------------USER ROUTINES----------//
 router.get("/user-routines", setUserRole, (req, res, next) => {
   const loggedUser = req.session.currentUser;
   User.findById(loggedUser._id)
@@ -145,7 +144,7 @@ router.get("/user-routines", setUserRole, (req, res, next) => {
     .catch((err) => next(err));
 });
 
-//Routine details
+//------------ROUTINE DETAILS----------//
 router.get("/routine-details/:id", setUserRole, (req, res) => {
   Routine.findById(req.params.id)
     .then((routineDetails) => {
@@ -167,43 +166,10 @@ router.post("/routine-details/:id/create-comment", async (req, res, next) => {
     .catch((err) => next(err));
 });
 
-//Logout
+//------------LOGOUT----------//
 router.get("/logout", (req, res) => {
   req.session.destroy();
   res.redirect("/");
 });
 
-/* Test user
-User.create({
-name: "test1",
-email: "test1@gmail.com",
-password: 1234,
-phoneNumber: 1234,
-biometrics: { height: 1.68, weight: 56 },
-objective: "Improve Health",
-});
-
-
-//Test routine
-Routine.create({
-bodyPart: "shoulders",
-day: "2",
-exercises: [
-{ name: "exercise1", repetitions: 2 },
-{ name: "exercise2", repetitions: 4 },
-],
-length: "45 min",
-difficulty: "Beginner",
-user: "645538547b45f8e137c0d118",
-
-//Test trainer
-Trainer.create({
-name: "trainer1",
-email: "trainer1@gmail.com",
-password: 1234,
-phoneNumber: 12345,
-clients: "6456182deaf77e3d4c090d94",
-routines: "645618fc70c6253e54ddc25d"
-})
-*/
 module.exports = router;

@@ -6,85 +6,125 @@
       Client:
       <input type="text" name="user" value="{{userData.name}}" />
     </label>
-    <label>
-      ClientId:
-      <input type="text" name="_id" value="{{userData._id}}" />
+      <input
+        type="text"
+        name="_id"
+        value="{{userData._id}}"
+        style="display: none;"
+      />
     </label>
     <label>
-      Name
-      <input type="text" name="routineName" value="Name" />
+      Routine Name
+      <input type="text" name="routineName" />
     </label>
     <label>
-      Body Part:
-      <input type="text" name="bodyPart" placeholder="Body Part" />
-    </label>
-    <br />
-    <label>
-      Day:
-      <input type="number" name="day" placeholder="Day" />
+      Body Part
+      <input type="text" name="bodyPart" />
     </label>
     <br />
     <label>
-      Lenght:
+      Days per week
+      <input type="number" name="daysPerWeek" placeholder="Days per week" />
+    </label>
+    <br />
+    <label>
+      Length:
       <input type="text" name="length" placeholder="Minutes" />
     </label>
     <br />
     <label>
       Difficulty
       <select name="difficulty">
+        <option disable selected value="">- Select one</option>
         <option value="Beginner">Beginner</option>
         <option value="Intermediate">Intermediate</option>
         <option value="Advanced">Advanced</option>
       </select>
     </label>
     <br />
+    <label>
+      Equipment
+      <select name="equipment">
+        <option disable selected value="">- Select one</option>
+        <option value="No equipment">No equipment</option>
+        <option value="Dumbbells/Kettlebells">Dumbbells/Kettlebells</option>
+        <option value="Bands">Bands</option>
+        <option value="Barbell">Barbell</option>
+      </select>
+    </label>
     <br />
-    <fieldset>
-      <legend>Exercises</legend>
-      <div id="exercises-container">
-        <div class="exercise-field">
-          <input type="text" name="exercises[name][]" placeholder="Name" />
-          <input
-            type="text"
-            name="exercises[repetitions][]"
-            placeholder="Repetitions"
-          />
-        </div>
-        <div class="exercise-field">
-          <input type="text" name="exercises[name][]" placeholder="Name" />
-          <input
-            type="text"
-            name="exercises[repetitions][]"
-            placeholder="Repetitions"
-          />
-        </div>
-        <div class="exercise-field">
-          <input type="text" name="exercises[name][]" placeholder="Name" />
-          <input
-            type="text"
-            name="exercises[repetitions][]"
-            placeholder="Repetitions"
-          />
-        </div>
-        <div class="exercise-field">
-          <input type="text" name="exercises[name][]" placeholder="Name" />
-          <input
-            type="text"
-            name="exercises[repetitions][]"
-            placeholder="Repetitions"
-          />
-        </div>
-        <div class="exercise-field">
-          <input type="text" name="exercises[name][]" placeholder="Name" />
-          <input
-            type="text"
-            name="exercises[repetitions][]"
-            placeholder="Repetitions"
-          />
-        </div>
+
+    <legend>Exercises</legend>
+    <div id="exercises-container">
+      <div class="exercise-field">
+        <input type="text" name="exercises[name][]" placeholder="Name" />
+        <input
+          type="text"
+          name="exercises[repetitions][]"
+          placeholder="Repetitions/Time"
+        />
       </div>
-    </fieldset>
+      <div class="exercise-field">
+        <input type="text" name="exercises[name][]" placeholder="Name" />
+        <input
+          type="text"
+          name="exercises[repetitions][]"
+          placeholder="Repetitions/Time"
+        />
+      </div>
+      <div class="exercise-field">
+        <input type="text" name="exercises[name][]" placeholder="Name" />
+        <input
+          type="text"
+          name="exercises[repetitions][]"
+          placeholder="Repetitions/Time"
+        />
+      </div>
+      <div class="exercise-field">
+        <input type="text" name="exercises[name][]" placeholder="Name" />
+        <input
+          type="text"
+          name="exercises[repetitions][]"
+          placeholder="Repetitions/Time"
+        />
+      </div>
+      <div class="exercise-field">
+        <input type="text" name="exercises[name][]" placeholder="Name" />
+        <input
+          type="text"
+          name="exercises[repetitions][]"
+          placeholder="Repetitions/Time"
+        />
+      </div>
+      <div class="exercise-field">
+        <input type="text" name="exercises[name][]" placeholder="Name" />
+        <input
+          type="text"
+          name="exercises[repetitions][]"
+          placeholder="Repetitions/Time"
+        />
+      </div>
+      <div class="exercise-field">
+        <input type="text" name="exercises[name][]" placeholder="Name" />
+        <input
+          type="text"
+          name="exercises[repetitions][]"
+          placeholder="Repetitions/Time"
+        />
+      </div>
+      <div class="exercise-field">
+        <input type="text" name="exercises[name][]" placeholder="Name" />
+        <input
+          type="text"
+          name="exercises[repetitions][]"
+          placeholder="Repetitions/Time"
+        />
+      </div>
+    </div>
     <br />
-    <button type="submit">Create</button>
+    <label>Notes</label>
+    <textarea name="notes" cols="30" rows="5"></textarea>
+    <br />
+    <button type="submit">Create routine</button>
   </form>
 </div>

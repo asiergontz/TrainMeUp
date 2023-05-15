@@ -1,5 +1,4 @@
-<h2>Edit the routine: {{routineToEdit.id}}</h2>
-
+<h2>Edit the routine: {{routineToEdit.routineName}}</h2>
 <form action="/trainer/routine-edit/{{routineToEdit.id}}" method="POST">
     <label>
       Name:
@@ -14,27 +13,11 @@
     value= "{{routineToEdit.bodyPart}}"
     /></label>
 <br>
-    <label>Day: <input 
+    <label>Days per week: <input 
     type="text"
-    name= "day"
-    value= "{{routineToEdit.day}}"
+    name= "daysPerWeek"
+    value= "{{routineToEdit.daysPerWeek}}"
     /></label>
-<br>
-Exercises:
-{{#each routineToEdit.exercises}}
-    <label>Name: <input 
-    type="text"
-    name= "exercises[name][]"
-    value= "{{this.name}}"
-    /></label>
-
-    <label>Repetitions: <input 
-    type="number"
-    name= "exercises[repetitions][]"
-    value= "{{this.repetitions}}"
-    /></label>
-    <br>
-{{/each}}
 <br>
 <label>
     Lenght: 
@@ -53,6 +36,75 @@ Exercises:
     </select>
 </label>
 <br>
+<label>
+    Equipment
+    <select name="equipment" >
+    <option>{{routineToEdit.equipment}}</option>
+       <option value="No equipment">No equipment</option>
+        <option value="Dumbbells/Kettlebells">Dumbbells/Kettlebells</option>
+        <option value="Bands">Bands</option>
+        <option value="Barbell">Barbell</option>
+    </select>
+</label>
+<br>
+Exercises:
+<div id="exercises-container">
+{{#each routineToEdit.exercises}}
+    <label>Name: <input 
+    type="text"
+    name= "exercises[name][]"
+    value= "{{this.name}}"
+    /></label>
+
+    <label>Repetitions: <input 
+    type="number"
+    name= "exercises[repetitions][]"
+    value= "{{this.repetitions}}"
+    /></label>
+    <br>
+{{/each}}
+    <div class="exercise-field">
+        <p>Add new exercises</p>
+         <label>Name:
+        <input type="text" name="exercises[name][]" placeholder="Name" /> </label>
+        <label>Repetitions: <input
+          type="text"
+          name="exercises[repetitions][]"
+          placeholder="Repetitions"
+        /></label>
+      </div>
+         <div class="exercise-field">
+         <label>Name:
+        <input type="text" name="exercises[name][]" placeholder="Name" /> </label>
+        <label>Repetitions: <input
+          type="text"
+          name="exercises[repetitions][]"
+          placeholder="Repetitions"
+        /></label>
+      </div>
+         <div class="exercise-field">
+         <label>Name:
+        <input type="text" name="exercises[name][]" placeholder="Name" /> </label>
+        <label>Repetitions: <input
+          type="text"
+          name="exercises[repetitions][]"
+          placeholder="Repetitions"
+        /></label>
+      </div>
+         <div class="exercise-field">
+         <label>Name:
+        <input type="text" name="exercises[name][]" placeholder="Name" /> </label>
+        <label>Repetitions: <input
+          type="text"
+          name="exercises[repetitions][]"
+          placeholder="Repetitions"
+        /></label>
+      </div>
+</div>
+<br>
+  <label>Notes:</label>
+    <textarea name="notes" cols="30" rows="5"></textarea>
+    <br/>
 <button type="submit">Edit routine</button>
 </form>
 </div>

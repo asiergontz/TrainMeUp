@@ -1,6 +1,6 @@
 <form action="/user/data-update" method="POST">
 
-  <fieldset>
+  <div>
     <legend>Biometrics</legend>
     <label>Height (cm):<input
         type="number"
@@ -12,10 +12,10 @@
         name="weight"
         value="{{userData.biometrics.weight}}"
       /></label><br />
-  </fieldset>
+  </div>
   <br />
   <label>
-    Objective:
+    Objective
     <select name="objective">
       <option disable selected value="">- Select one</option>
       <option value="Weight Loss">Weight Loss</option>

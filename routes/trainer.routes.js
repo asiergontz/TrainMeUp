@@ -9,7 +9,7 @@ const User = require("../models/User.model");
 const Routine = require("../models/Routine.model");
 
 const setUserRole = require("../middleware/userRole");
-const { userLoggedIn, trainerLoggedIn } = require("../middleware/isLoggedIn");
+// const { userLoggedIn, trainerLoggedIn } = require("../middleware/isLoggedIn");
 
 //------------LOGIN----------//
 router.get("/login-trainer", (req, res, next) => {
@@ -75,7 +75,7 @@ router.get("/dashboard-trainer", setUserRole, (req, res, next) => {
 
 //---------CLIENT-DETAILS-----------//
 
-router.get("/client-details/:id", (req, res, next) => {
+router.get("/client-details/:id", setUserRole, (req, res, next) => {
   const { id } = req.params;
   User.findById(req.params.id)
     .then((clientDetails) => {
@@ -89,16 +89,16 @@ router.get("/client-details/:id", (req, res, next) => {
     .catch((error) => next(error));
 });
 
-//delete routine//
+//------------DELETE ROUTINE----------//
 
-/* router.post("/routine-client/:id/delete", (req, res, next) => {
+router.get("/routine-client/:id/delete", (req, res, next) => {
   const { id } = req.params;
   Routine.findByIdAndDelete(id)
-    .then(() => res.redirect("/"))
+    .then(() => res.redirect("/trainer/client-details/"))
     .catch((error) => next(error));
-}); */
+});
 
-//add routine//
+//------------ADD ROUTINE----------//
 
 router.get("/client-details/:id/routine-new", setUserRole, (req, res, next) => {
   const { id } = req.params;
@@ -111,20 +111,33 @@ router.get("/client-details/:id/routine-new", setUserRole, (req, res, next) => {
 
 router.post("/routine-new", (req, res, next) => {
   const loggedTrainer = req.session.currentUser;
-  const { routineName,bodyPart, day, length, difficulty, _id } = req.body;
+  const {
+    routineName,
+    bodyPart,
+    daysPerWeek,
+    length,
+    difficulty,
+    equipment,
+    notes,
+    _id,
+  } = req.body;
   const exercises = [];
   req.body["exercises[name][]"].forEach((name, index) => {
     const repetitions = req.body["exercises[repetitions][]"][index];
-    exercises.push({ name, repetitions });
+    if (name !== "" && repetitions !== "") {
+      exercises.push({ name, repetitions });
+    }
   });
   Routine.create({
     routineName,
     trainer: loggedTrainer,
     bodyPart,
-    day,
+    daysPerWeek,
     exercises,
     length,
     difficulty,
+    equipment,
+    notes,
     user: _id,
   })
     .then(() => {
@@ -135,7 +148,7 @@ router.post("/routine-new", (req, res, next) => {
 
 //----------CLIENT-ROUTINE DETAILS-----------//
 
-router.get("/routine-client/:id", (req, res) => {
+router.get("/routine-client/:id", setUserRole, (req, res) => {
   Routine.findById(req.params.id)
     .then((routineDetails) => {
       res.render("trainer/routine-client", { routineDetails });
@@ -143,7 +156,7 @@ router.get("/routine-client/:id", (req, res) => {
     .catch((error) => next(error));
 });
 
-//edit routine//
+//------------EDIT ROUTINE----------//
 
 router.get("/routine-client/:id/edit", setUserRole, (req, res, next) => {
   const { id } = req.params;
@@ -156,57 +169,51 @@ router.get("/routine-client/:id/edit", setUserRole, (req, res, next) => {
 
 router.post("/routine-edit/:id", (req, res, next) => {
   const routineId = req.params.id;
-  const { routineName, bodyPart, day, length, difficulty } = req.body;
+  const {
+    routineName,
+    bodyPart,
+    daysPerWeek,
+    length,
+    difficulty,
+    equipment,
+    notes,
+  } = req.body;
   const exercises = [];
   req.body["exercises[name][]"].forEach((name, index) => {
     const repetitions = req.body["exercises[repetitions][]"][index];
-    exercises.push({ name, repetitions });
+    if (name !== "" && repetitions !== "") {
+      exercises.push({ name, repetitions });
+    }
   });
   Routine.findByIdAndUpdate(
     req.params.id,
-    { routineName, bodyPart, day, length, exercises, difficulty },
+    {
+      routineName,
+      bodyPart,
+      daysPerWeek,
+      length,
+      exercises,
+      difficulty,
+      equipment,
+      notes,
+    },
     { new: true }
   )
     .then(() => res.redirect(`/trainer/routine-client/${routineId}`))
     .catch((err) => next(err));
 });
 
-
-  
-//Add a comment
-
-
-/*router.post("/routine-client/:id/create-comment", async (req, res, next) => {
-  const { comments } = req.body;
-  const {id} = req.params
-  const currentRoutine = await Routine.findById(id);
-  console.log("touineskjf", currentRoutine)
-  currentRoutine.comments.push(comments);
-  console.log("Current routine", currentRoutine);
-  Routine.findByIdAndUpdate(id, currentRoutine, {new:true})
-    .then(() => res.redirect(`/trainer/routine-client/${id}`))
-    .catch((err) => next(err));
-});*/
-
-/*router.post("/routine-client/:id/create-comment", async (req, res, next) => {
-    const { author, content } = req.body;
-    const {id} = req.params
-    Routine.findByIdAndUpdate(id, {comments:{author, content}}, {new:true})
-      .then(() => res.redirect(`/trainer/routine-client/${id}`))
-      .catch((err) => next(err));
-})*/
+//------------ADD A COMMENT----------//
 
 router.post("/routine-client/:id/create-comment", async (req, res, next) => {
-    const { author, content } = req.body;
-    const {id} = req.params
-    const currentRoutine = await Routine.findById(id);
-    console.log("touineskjf", currentRoutine)
-    currentRoutine.comments.push({author, content});
-    console.log("Current routine", currentRoutine);
-    Routine.findByIdAndUpdate(id, currentRoutine, {new:true})
-      .then(() => res.redirect(`/trainer/routine-client/${id}`))
-      .catch((err) => next(err));
-  });
+  const { author, content } = req.body;
+  const { id } = req.params;
+  const currentRoutine = await Routine.findById(id);
+  currentRoutine.comments.push({ author, content });
+  Routine.findByIdAndUpdate(id, currentRoutine, { new: true })
+    .then(() => res.redirect(`/trainer/routine-client/${id}`))
+    .catch((err) => next(err));
+});
 
 //----------CLIENT REGISTRATION---------//
 
@@ -215,6 +222,7 @@ router.get("/client-registration", setUserRole, (req, res, next) => {
 });
 
 router.post("/client-registration", (req, res, next) => {
+  const trainerId = req.session.currentUser;
   const { name, email, password } = req.body;
   if (!name || !email || !password) {
     res.status(400).render("trainer/client-registration", {
@@ -239,10 +247,11 @@ router.post("/client-registration", (req, res, next) => {
         name,
         email,
         password: hashedPassword,
+        trainer: trainerId,
       });
     })
     .then(() => {
-      res.redirect("/");
+      res.redirect("/trainer/dashboard-trainer");
     })
     .catch((err) => next(err));
 });

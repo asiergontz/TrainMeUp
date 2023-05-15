@@ -10,16 +10,10 @@ const routineSchema = new Schema({
     type: String,
     required: true,
   },
-  day: {
+  daysPerWeek: {
     type: String,
     required: true,
   },
-  exercises: [
-    {
-      name: String,
-      repetitions: Number,
-    },
-  ],
   length: {
     type: String,
     required: true,
@@ -31,12 +25,26 @@ const routineSchema = new Schema({
 
     required: true,
   },
+  equipment: {
+    type: String,
+
+    enum: ["No equipment", "Dumbbells/Kettlebells", "Bands", "Barbell"],
+
+    required: true,
+  },
+  exercises: [
+    {
+      name: String,
+      repetitions: String,
+    },
+  ],
+  notes: String,
   comments: [
-   {
-    author: String,
-    content: String
-  }
-],
+    {
+      author: String,
+      content: String,
+    },
+  ],
   trainer: { type: Schema.Types.ObjectId, ref: "Trainer" },
   user: { type: Schema.Types.ObjectId, ref: "User" },
 });

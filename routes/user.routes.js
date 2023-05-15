@@ -154,6 +154,19 @@ router.get("/routine-details/:id", setUserRole, (req, res) => {
     .catch((error) => next(error));
 });
 
+//Add comment
+
+router.post("/routine-details/:id/create-comment", async (req, res, next) => {
+  const { author, content } = req.body;
+  const {id} = req.params
+  const currentRoutine = await Routine.findById(id);
+  currentRoutine.comments.push({author, content});
+  console.log("Current routine", currentRoutine);
+  Routine.findByIdAndUpdate(id, currentRoutine, {new:true})
+    .then(() => res.redirect(`/user/routine-details/${id}`))
+    .catch((err) => next(err));
+});
+
 //Logout
 router.get("/logout", (req, res) => {
   req.session.destroy();

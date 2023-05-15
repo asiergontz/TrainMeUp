@@ -15,4 +15,19 @@
     {{/each}}
   </ul>
   <li>Notes:{{routineDetails.notes}}</li>
+    <h2>Comments</h2>
+  <ul>
+    {{#each routineDetails.comments}}
+      <li>Author:{{this.author}}</li>
+      <li>{{this.content}}</li>
+    {{/each}}
+  </ul>
+    <form action="/user/routine-details/{{routineDetails._id}}/create-comment" method="POST">
+  <textarea name="content" cols="30" rows="10"></textarea>
+  <br>
+  <label>Author:
+    <input type="text" name="author"/>
+  </label>
+  <button type="submit">Add comment</button>
+  </form>
 </ul>

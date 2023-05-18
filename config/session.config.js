@@ -19,7 +19,7 @@ module.exports = (app) => {
       store: MongoStore.create({
         mongoUrl:
           process.env.MONGODB_URI ||
-          "mongodb://localhost/lab-express-basic-auth",
+          `mongodb+srv://AsierGontz:${process.env.MONGO_PASS}@trainmeup.wq6qkmz.mongodb.net/`,
       }),
     })
   );

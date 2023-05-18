@@ -1,113 +1,341 @@
-<h2>Edit the routine: {{routineToEdit.routineName}}</h2>
 <form action="/trainer/routine-edit/{{routineToEdit.id}}" method="POST">
-    <label>
-      Name:
-    <input type="text" 
-    name="routineName" 
-    value="{{routineToEdit.routineName}}"/>
-    </label>
+  <div class="space-y-12">
+    <div class="border-b border-gray-900/10 pb-12">
+      <h2 class="text-base font-semibold leading-7 text-gray-900">Edit the
+        routine:
+        {{routineToEdit.routineName}}</h2>
 
-    <label>Body Part: <input 
-    type="text"
-    name= "bodyPart"
-    value= "{{routineToEdit.bodyPart}}"
-    /></label>
-<br>
-    <label>Days per week: <input 
-    type="text"
-    name= "daysPerWeek"
-    value= "{{routineToEdit.daysPerWeek}}"
-    /></label>
-<br>
-<label>
-    Lenght: 
-    <input type="text" 
-    name="length" 
-    value="{{routineToEdit.length}}" />
-</label>
-<br>
-<label>
-    Difficulty
-    <select name="difficulty" >
-    <option>{{routineToEdit.difficulty}}</option>
-    <option value="Beginner">Beginner</option>
-    <option value="Intermediate">Intermediate</option>
-    <option value="Advanced">Advanced</option>
-    </select>
-</label>
-<br>
-<label>
-    Equipment
-    <select name="equipment" >
-    <option>{{routineToEdit.equipment}}</option>
-       <option value="No equipment">No equipment</option>
-        <option value="Dumbbells/Kettlebells">Dumbbells/Kettlebells</option>
-        <option value="Bands">Bands</option>
-        <option value="Barbell">Barbell</option>
-    </select>
-</label>
-<br>
-Exercises:
-<div id="exercises-container">
-{{#each routineToEdit.exercises}}
-    <label>Name: <input 
-    type="text"
-    name= "exercises[name][]"
-    value= "{{this.name}}"
-    /></label>
+      <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+        <div class="sm:col-span-2">
+          <label
+            for="routineName"
+            class="block text-sm font-medium leading-6 text-gray-900"
+          >Routine Name</label>
+          <div class="mt-2">
+            <div
+              class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md"
+            >
+              <input
+                type="text"
+                name="routineName"
+                id="routineName"
+                value="{{routineToEdit.routineName}}"
+                class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+        </div>
 
-    <label>Repetitions: <input 
-    type="number"
-    name= "exercises[repetitions][]"
-    value= "{{this.repetitions}}"
-    /></label>
-    <br>
-{{/each}}
-    <div class="exercise-field">
-        <p>Add new exercises</p>
-         <label>Name:
-        <input type="text" name="exercises[name][]" placeholder="Name" /> </label>
-        <label>Repetitions: <input
-          type="text"
-          name="exercises[repetitions][]"
-          placeholder="Repetitions"
-        /></label>
+        <div class="sm:col-span-2">
+          <label
+            for="bodyPart"
+            class="block text-sm font-medium leading-6 text-gray-900"
+          >Body Part</label>
+          <div class="mt-2">
+            <div
+              class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md"
+            >
+              <input
+                type="text"
+                name="bodyPart"
+                id="bodyPart"
+                value="{{routineToEdit.bodyPart}}"
+                class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="sm:col-span-2">
+          <label
+            for="daysPerWeek"
+            class="block text-sm font-medium leading-6 text-gray-900"
+          >Days per week</label>
+          <div class="mt-2">
+            <div
+              class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md"
+            >
+              <input
+                type="text"
+                name="daysPerWeek"
+                id="daysPerWeek"
+                value="{{routineToEdit.daysPerWeek}}"
+                class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="sm:col-span-2">
+          <label
+            for="length"
+            class="block text-sm font-medium leading-6 text-gray-900"
+          >Length</label>
+          <div class="mt-2">
+            <div
+              class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md"
+            >
+              <input
+                type="text"
+                name="length"
+                id="length"
+                value="{{routineToEdit.length}}"
+                class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="sm:col-span-2">
+          <label
+            for="equipment"
+            class="block text-sm font-medium leading-6 text-gray-900"
+          >Equipment</label>
+          <div class="mt-2">
+            <select
+              id="equipment"
+              name="equipment"
+              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+            >
+              <option> {{routineToEdit.equipment}}</option>
+              <option value="No equipment">No equipment</option>
+              <option
+                value="Dumbbells/Kettlebells"
+              >Dumbbells/Kettlebells</option>
+              <option value="Bands">Bands</option>
+              <option value="Barbell">Barbell</option>
+            </select>
+          </div>
+        </div>
+
+        <fieldset>
+          <legend
+            class="text-sm font-semibold leading-6 text-gray-900"
+          >Difficulty</legend>
+
+          <div class="mt-6 space-y-6">
+            <div class="flex items-center gap-x-3">
+              <input
+                id="beginner"
+                name="difficulty"
+                value="Beginner"
+                type="radio"
+                class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+              />
+              <label
+                class="block text-sm font-medium leading-6 text-gray-900"
+              >Beginner</label>
+            </div>
+            <div class="flex items-center gap-x-3">
+              <input
+                id="intermediate"
+                name="difficulty"
+                value="Intermediate"
+                type="radio"
+                class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+              />
+              <label
+                class="block text-sm font-medium leading-6 text-gray-900"
+              >Intermediate</label>
+            </div>
+            <div class="flex items-center gap-x-3">
+              <input
+                id="advanced"
+                name="difficulty"
+                value="Advanced"
+                type="radio"
+                class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+              />
+              <label
+                class="block text-sm font-medium leading-6 text-gray-900"
+              >Advanced</label>
+            </div>
+          </div>
+        </fieldset>
+
       </div>
-         <div class="exercise-field">
-         <label>Name:
-        <input type="text" name="exercises[name][]" placeholder="Name" /> </label>
-        <label>Repetitions: <input
-          type="text"
-          name="exercises[repetitions][]"
-          placeholder="Repetitions"
-        /></label>
+    </div>
+
+    <div class="border-b border-gray-900/10 pb-12">
+      <h2 class="text-base font-semibold leading-7 text-gray-900">Exercises</h2>
+
+      <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+        <div class="sm:col-span-2">
+          <label
+            class="block text-sm font-medium leading-6 text-gray-900"
+          >Name</label>
+          <div class="mt-2">
+            <input
+              type="text"
+              name="exercises[name][]"
+              id="exercises-name"
+              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            />
+          </div>
+        </div>
+        <div class="sm:col-span-2">
+          <label
+            class="block text-sm font-medium leading-6 text-gray-900"
+          >Repetitions</label>
+          <div class="mt-2">
+            <input
+              type="text"
+              name="exercises[repetitions][]"
+              id="exercises-repetitions"
+              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            />
+          </div>
+        </div>
       </div>
-         <div class="exercise-field">
-         <label>Name:
-        <input type="text" name="exercises[name][]" placeholder="Name" /> </label>
-        <label>Repetitions: <input
-          type="text"
-          name="exercises[repetitions][]"
-          placeholder="Repetitions"
-        /></label>
+
+      {{#each routineToEdit.exercises}}
+        <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+          <div class="sm:col-span-2">
+            <label
+              class="block text-sm font-medium leading-6 text-gray-900"
+            >Name</label>
+            <div class="mt-2">
+              <input
+                type="text"
+                name="exercises[name][]"
+                id="exercises-name"
+                value="{{this.name}}"
+                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+          <div class="sm:col-span-2">
+            <label
+              class="block text-sm font-medium leading-6 text-gray-900"
+            >Repetitions</label>
+            <div class="mt-2">
+              <input
+                type="text"
+                name="exercises[repetitions][]"
+                id="exercises-repetitions"
+                value="{{this.repetitions}}"
+                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+        </div>
+      {{/each}}
+   
+    <div class="border-b border-gray-900/10 pb-12">
+      <h2 class="text-base font-semibold leading-7 text-gray-900">Add new
+        exercises</h2>
+      <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+        <div class="sm:col-span-2">
+          <label
+            class="block text-sm font-medium leading-6 text-gray-900"
+          >Name</label>
+          <div class="mt-2">
+            <input
+              type="text"
+              name="exercises[name][]"
+              id="exercises-name"
+              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            />
+          </div>
+        </div>
+        <div class="sm:col-span-2">
+          <label
+            class="block text-sm font-medium leading-6 text-gray-900"
+          >Repetitions</label>
+          <div class="mt-2">
+            <input
+              type="text"
+              name="exercises[repetitions][]"
+              id="exercises-repetitions"
+              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            />
+          </div>
+        </div>
       </div>
-         <div class="exercise-field">
-         <label>Name:
-        <input type="text" name="exercises[name][]" placeholder="Name" /> </label>
-        <label>Repetitions: <input
-          type="text"
-          name="exercises[repetitions][]"
-          placeholder="Repetitions"
-        /></label>
+
+      <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+        <div class="sm:col-span-2">
+          <label
+            class="block text-sm font-medium leading-6 text-gray-900"
+          >Name</label>
+          <div class="mt-2">
+            <input
+              type="text"
+              name="exercises[name][]"
+              id="exercises-name"
+              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            />
+          </div>
+        </div>
+        <div class="sm:col-span-2">
+          <label
+            class="block text-sm font-medium leading-6 text-gray-900"
+          >Repetitions</label>
+          <div class="mt-2">
+            <input
+              type="text"
+              name="exercises[repetitions][]"
+              id="exercises-repetitions"
+              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            />
+          </div>
+        </div>
       </div>
-</div>
-<br>
-  <label>Notes:</label>
-    <textarea name="notes" cols="30" rows="5"></textarea>
-    <br/>
-<button type="submit">Edit routine</button>
+
+      <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+        <div class="sm:col-span-2">
+          <label
+            class="block text-sm font-medium leading-6 text-gray-900"
+          >Name</label>
+          <div class="mt-2">
+            <input
+              type="text"
+              name="exercises[name][]"
+              id="exercises-name"
+              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            />
+          </div>
+        </div>
+        <div class="sm:col-span-2">
+          <label
+            class="block text-sm font-medium leading-6 text-gray-900"
+          >Repetitions</label>
+          <div class="mt-2">
+            <input
+              type="text"
+              name="exercises[repetitions][]"
+              id="exercises-repetitions"
+              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            />
+          </div>
+        </div>
+      </div>
+
+   
+
+      
+
+      <div class="col-span-full">
+        <label
+          for="notes"
+          class="block text-sm font-medium leading-6 text-gray-900"
+        >Notes</label>
+        <div class="mt-2">
+          <textarea
+            id="notes"
+            name="notes"
+            rows="3"
+            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          ></textarea>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-6 flex items-center justify-end gap-x-6">
+    <button
+      type="submit"
+      class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+    >Save</button>
+  </div>
 </form>
-</div>
-
-
-

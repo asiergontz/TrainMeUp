@@ -1,33 +1,74 @@
-<h2>Routine Details</h2>
-<p>{{routineDetails.routineName}}</p>
-<ul>
-  <li>Body part: {{routineDetails.bodyPart}}</li>
-  <li>Days per week: {{routineDetails.daysPerWeek}}</li>
-  <li>Length: {{routineDetails.length}}</li>
-  <li>Difficulty: {{routineDetails.difficulty}}</li>
-  <li>Length: {{routineDetails.length}}</li>
+<div>
+  <div class="px-4 sm:px-0">
+    <h1 class="text-2xl font-bold leading-7 text-gray-900">{{routineDetails.routineName}}</h1>
 
-  <li>Exercises</li>
-  <ul>
-    {{#each routineDetails.exercises}}
-      <li>Name:{{this.name}}</li>
-      <li>Repetitions:{{this.repetitions}}</li>
-    {{/each}}
-  </ul>
-  <li>Notes:{{routineDetails.notes}}</li>
-    <h2>Comments</h2>
-  <ul>
-    {{#each routineDetails.comments}}
-      <li>Author:{{this.author}}</li>
-      <li>{{this.content}}</li>
-    {{/each}}
-  </ul>
-    <form action="/user/routine-details/{{routineDetails._id}}/create-comment" method="POST">
-  <textarea name="content" cols="30" rows="10"></textarea>
-  <br>
-  <label>Author:
-    <input type="text" name="author"/>
-  </label>
-  <button type="submit">Add comment</button>
-  </form>
-</ul>
+    <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Routine details</p>
+
+<div>
+  </div>
+  <div class="mt-6 border-t border-gray-100">
+    <dl class="divide-y divide-gray-100">
+      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+        <dt class="text-sm font-medium leading-6 text-gray-900">Body Part</dt>
+        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{routineDetails.bodyPart}}</dd>
+      </div>
+      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+        <dt class="text-sm font-medium leading-6 text-gray-900">Days per week</dt>
+        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{routineDetails.daysPerWeek}}</dd>
+      </div>
+      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+        <dt class="text-sm font-medium leading-6 text-gray-900">Length: </dt>
+        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{routineDetails.length}}</dd>
+      </div>
+      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+        <dt class="text-sm font-medium leading-6 text-gray-900">Difficulty</dt>
+        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{routineDetails.difficulty}}</dd>
+      </div>
+  <!--exercises -->
+      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+        <dt class="text-sm font-medium leading-6 text-gray-900">Exercises:</dt>
+    
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+  {{#each routineDetails.exercises}}
+    <div class="rounded-lg shadow-md overflow-hidden h-auto bg-gradient-to-r from-sky-100 to-white px-6 py-4">
+        <h3 class="text-lg font-semibold mb-2">{{this.name}}</h3>
+        <p class="text-gray-600">{{this.repetitions}}</p>
+    </div>
+  {{/each}}
+</div>
+      </div>
+    </dl>
+  </div>
+
+ <!--comentarios -->
+<div class="container mx-auto">
+  <section id="routine-comments" class="py-8 max-w-lg mx-auto">
+    <h3 class="text-2xl font-bold mb-4">Comments</h3>
+    <div class="bg-gray-100 p-4 rounded-lg">
+      <ul>
+        {{#each routineDetails.comments}}
+          <li class="mb-2">
+            <span class="font-bold">Author:</span> {{this.author}}
+          </li>
+          <li class="mb-4">{{this.content}}</li>
+          <hr class="border-t border-gray-300 my-4">
+        {{/each}}
+      </ul>
+    </div>
+    <div class="mt-8">
+      <h4 class="text-lg font-bold mb-4">Add new comment</h4>
+      <form action="/trainer/routine-client/{{routineDetails._id}}/create-comment" method="POST">
+        <textarea name="content" cols="30" rows="10" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500"></textarea>
+        <br />
+        <label class="block mt-4">
+          <span class="font-bold">Author:</span>
+          <input type="text" name="author" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500" />
+        </label>
+        <button type="submit" class="mt-4 px-4 py-2 bg-sky-500 text-white rounded-lg hover:bg-sky-600">Add comment</button>
+      </form>
+    </div>
+  </section>
+  <section id="section-btns">
+    <!-- Contenido de la sección de botones -->
+  </section>
+</div>

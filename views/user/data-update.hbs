@@ -1,4 +1,4 @@
-<form action="/user/data-update" method="POST">
+{{!-- <form action="/user/data-update" method="POST">
 
   <div>
     <legend>Biometrics</legend>
@@ -26,4 +26,76 @@
   <br />
 
   <button type="submit">Submit</button>
+</form> --}}
+
+<form action="/user/data-update" method="POST">
+  <div class="space-y-12">
+    <div class="border-b border-gray-900/10 pb-12">
+      <h2 class="text-base font-semibold leading-7 text-gray-900">Personal
+        Information</h2>
+      <p class="mt-1 text-sm leading-6 text-gray-600">Update your profile,
+        please don't modify your email.</p>
+
+      <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+
+        <div class="border-b border-gray-900/10 pb-12">
+          <h2
+            class="text-base font-semibold leading-7 text-gray-900"
+          >Biometrics</h2>
+          <div class="sm:col-span-2">
+            <label
+              class="block text-sm font-medium leading-6 text-gray-900"
+            >Height (cm)</label>
+            <div class="mt-2">
+              <input
+                type="text"
+                name="height"
+                value="{{userData.biometrics.height}}"
+                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+
+          <div class="sm:col-span-2">
+            <label
+              for="postal-code"
+              class="block text-sm font-medium leading-6 text-gray-900"
+            >Weight (kg)</label>
+            <div class="mt-2">
+              <input
+                type="text"
+                name="weight"
+                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                value="{{userData.biometrics.weight}}"
+              />
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="sm:col-span-3">
+        <label
+          class="block text-sm font-medium leading-6 text-gray-900"
+        >Objective</label>
+        <div class="mt-2">
+          <select
+            name="objective"
+            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+          ><option disable selected value="">- Select one</option>
+            <option value="Weight Loss">Weight Loss</option>
+            <option value="Improve Health">Improve Health</option>
+            <option value="Gain weight">Gain weight</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="mt-6 flex items-center justify-end gap-x-6">
+
+      <button
+        type="submit"
+        class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+      >Save</button>
+    </div>
+  </div>
 </form>

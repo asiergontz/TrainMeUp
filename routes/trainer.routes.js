@@ -9,10 +9,10 @@ const User = require("../models/User.model");
 const Routine = require("../models/Routine.model");
 
 const setUserRole = require("../middleware/userRole");
-// const { userLoggedIn, trainerLoggedIn } = require("../middleware/isLoggedIn");
+const { userLoggedIn, trainerLoggedIn } = require("../middleware/isLoggedIn");
 
 //------------LOGIN----------//
-router.get("/login-trainer", (req, res, next) => {
+router.get("/login-trainer", trainerLoggedIn, (req, res, next) => {
   res.render("auth/login-trainer");
 });
 

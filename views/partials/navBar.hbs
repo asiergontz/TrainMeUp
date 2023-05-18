@@ -1,14 +1,53 @@
-<nav>
-  <ul>
+<nav class="bg-gradient-to-r from-sky-500 to-blue-600 text-white">
+  <ul class="flex justify-between items-center py-4 px-8">
+    <p class="text-white font-bold">TrainMeUp</p>
     {{#if (eq userRole "user")}}
-      <li><a href="/user/user-dashboard">My Dashboard</a></li>
-      <li><a href="/user/user-routines">My routines</a></li>
-      <li><a href="/user/data-update">Update my data</a></li>
-      <li><a href="/user/logout" class="logout-btn">Log out</a></li>
+      <li>
+        <a href="/" class="text-white hover:text-gray-300 font-bold">Home</a>
+      </li>
+      <li>
+        <a
+          href="/user/user-dashboard"
+          class="text-white hover:text-gray-300 font-bold"
+        >My Dashboard</a>
+      </li>
+      <li>
+        <a
+          href="/user/user-routines"
+          class="text-white hover:text-gray-300 font-bold"
+        >My Routines</a>
+      </li>
+      <li>
+        <a
+          href="/user/data-update"
+          class="text-white hover:text-gray-300 font-bold"
+        >Update My Data</a>
+      </li>
+      <li>
+        <a
+          href="/user/logout"
+          class="text-white hover:text-gray-300 font-bold"
+        >Log out</a>
+      </li>
     {{else if (eq userRole "trainer")}}
-      <li><a href="/trainer/dashboard-trainer">My Dashboard</a></li>
-      <li><a href="/trainer/client-registration">Register client</a></li>
-      <li><a href="/user/logout" class="logout-btn">Log out</a></li>
+      <li>
+        <a href="/" class="text-white hover:text-gray-300 font-bold">Home</a>
+      </li>
+      <li>
+        <a
+          href="/trainer/dashboard-trainer"
+          class="text-white hover:text-gray-300 font-bold"
+        >My Dashboard</a>
+      </li>
+      <li>
+        <a
+          href="/trainer/client-registration"
+          class="text-white hover:text-gray-300 font-bold"
+        >Register Client</a>
+      </li>
+      <li>
+        <a href="/user/logout" class="text-white hover:text-gray-300">Log out</a>
+      </li>
     {{/if}}
   </ul>
 </nav>

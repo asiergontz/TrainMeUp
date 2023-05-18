@@ -9,10 +9,10 @@ const Routine = require("../models/Routine.model");
 const Trainer = require("../models/Trainer.model");
 
 const setUserRole = require("../middleware/userRole");
-// const { userLoggedIn, trainerLoggedIn } = require("../middleware/isLoggedIn");
+const { userLoggedIn, trainerLoggedIn } = require("../middleware/isLoggedIn");
 
 //------------LOG IN USER----------//
-router.get("/login-user", (req, res, next) => {
+router.get("/login-user", userLoggedIn, (req, res, next) => {
   res.render("auth/login-user");
 });
 
@@ -157,11 +157,11 @@ router.get("/routine-details/:id", setUserRole, (req, res) => {
 
 router.post("/routine-details/:id/create-comment", async (req, res, next) => {
   const { author, content } = req.body;
-  const {id} = req.params
+  const { id } = req.params;
   const currentRoutine = await Routine.findById(id);
-  currentRoutine.comments.push({author, content});
+  currentRoutine.comments.push({ author, content });
   console.log("Current routine", currentRoutine);
-  Routine.findByIdAndUpdate(id, currentRoutine, {new:true})
+  Routine.findByIdAndUpdate(id, currentRoutine, { new: true })
     .then(() => res.redirect(`/user/routine-details/${id}`))
     .catch((err) => next(err));
 });

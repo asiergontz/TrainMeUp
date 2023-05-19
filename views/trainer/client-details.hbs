@@ -1,25 +1,55 @@
-<h1>CLIENT DETAILS</h1>
-<section id="personal-data">
-  <h2>Personal information</h2>
-  <div>
-    <ul>
-      <li>Name: {{user.name}}</li>
-      <li>Height: {{user.biometrics.height}}</li>
-      <li>Weight: {{user.biometrics.weight}}</li>
-      <li>Objective: {{user.objective}}</li>
-    </ul>
+
+<div class=" bg-white rounded-lg p-8">
+  <div class="px-4 sm:px-0">
+    <h1 class="text-2xl font-bold leading-7 text-gray-900">Client Details</h1>
+
+    <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Personal Information</p>
+
+<div>
   </div>
-</section>
-<section id="client-routines">
-  <h2>Routines</h2>
-  <div class="routine-card">
-    {{#each routines}}
-      <li>Name: {{this.routineName}}</li>
-      <li>Days per week: {{this.daysPerWeek}}</li>
-      <li>Body part: {{this.bodyPart}}</li>
-      <a href="/trainer/routine-client/{{this._id}}">View details</a>
-    {{/each}}
-  </div>
-</section>
-<br />
-<a href="/trainer/client-details/{{user._id}}/routine-new">Add new routine</a>
+  <div class="mt-6 border-t border-gray-100">
+    <dl class="divide-y divide-gray-100">
+      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+        <dt class="text-sm font-medium leading-6 text-gray-900">Name</dt>
+        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{user.name}}</dd>
+      </div>
+      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+        <dt class="text-sm font-medium leading-6 text-gray-900">Height</dt>
+        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{user.biometrics.height}}</dd>
+      </div>
+      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+        <dt class="text-sm font-medium leading-6 text-gray-900">Weight </dt>
+        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{user.biometrics.weight}}</dd>
+      </div>
+      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+        <dt class="text-sm font-medium leading-6 text-gray-900">Objective</dt>
+        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{user.objective}}</dd>
+      </div>
+
+       <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+        <dt class="text-sm font-medium leading-6 text-gray-900">Routines:</dt>
+    
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+  {{#each routines}}
+    <div class="rounded-lg shadow-md overflow-hidden h-auto bg-gradient-to-r from-sky-100 to-white px-6 py-4">
+        <h3 class="text-lg font-semibold mb-2">{{this.routineName}}</h3>
+        <p class="text-gray-700">{{this.bodyPart}}</p>
+        <p class="text-gray-600">Days per week: {{this.daysPerWeek}} </p>
+        
+       <a href="/trainer/routine-client/{{this._id}}">
+  <button class="bg-sky-500 hover:bg-sky-600 text-white font-bold py-1 px-2 rounded text-sm">
+    View details
+  </button>
+</a>
+</a>
+    </div>
+  {{/each}}
+</div>
+<div style="text-align: center;">
+   <a href="/trainer/client-details/{{user._id}}/routine-new">
+  <button class="bg-sky-500 hover:bg-sky-600 text-white font-bold py-5 px-5 rounded text-m">
+    ADD NEW ROUTINE
+  </button>
+</div>
+
+      </div>

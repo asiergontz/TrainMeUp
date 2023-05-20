@@ -1,9 +1,7 @@
-
 body {
   font: 14px "Open Sans", Helvetica, Arial, sans-serif;
   background: url(/images/Untitled\ design.png);
 }
-
 
 .body-container {
   display: flex;
@@ -30,7 +28,6 @@ nav ul li {
   list-style-type: none;
 }
 
-
 .nav-logo {
   display: flex;
   align-items: center;
@@ -38,6 +35,8 @@ nav ul li {
   gap: 10px;
 }
 
+
 footer {
   margin-top: 100px; 
 }
+

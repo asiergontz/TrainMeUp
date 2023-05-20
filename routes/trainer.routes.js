@@ -25,13 +25,13 @@ router.post("/login-trainer", (req, res, next) => {
     });
     return;
   }
-  /*if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/.test(password)) {
+  if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(password)) {
       res.render("auth/login-trainer", {
-        errorMessage:
+        errormessage:
           "Password needs to have at least 8 characters and must contain at least one number, one lowercase and one uppercase letter.",
       });
       return;
-    }*/
+    }
   Trainer.findOne({ email })
     .then((dbTrainer) => {
       if (!dbTrainer) {
@@ -40,13 +40,13 @@ router.post("/login-trainer", (req, res, next) => {
         });
         return;
       }
-      /*const samePassword = bcryptjs.compareSync(password, dbTrainer.password);
+      const samePassword = bcryptjs.compareSync(password, dbTrainer.password);
         if (!samePassword) {
           res.render("auth/login", {
             errormessage: "Incorrect password. Please try again",
           });
           return;
-        }*/
+        }
       req.session.currentUser = dbTrainer;
       /*User.find({trainer: dbTrainer._id}).then((specificUsers) => {
             console.log(specificUsers)

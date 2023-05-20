@@ -1,7 +1,9 @@
 
 body {
   font: 14px "Open Sans", Helvetica, Arial, sans-serif;
-  background: url(/images/Untitled\ design.png);
+   background-image: url("/images/logoBackground.png");
+    background-repeat:repeat;
+    background-size: 45px;
 }
 
 

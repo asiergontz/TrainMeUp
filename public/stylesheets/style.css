@@ -1,17 +1,23 @@
-body 
-  {
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
-    background-image: url("/images/logoBackground.png");
-    background-repeat:repeat;
-    background-size: 45px;
-    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  }
+body {
+  font: 14px "Open Sans", Helvetica, Arial, sans-serif;
+  background: url(/images/Untitled\ design.png);
+}
 
 
-
+.body-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+}
+.view-container {
+  width: 80%;
+  height: 100%;
+  text-align: center;
+  background-color: #fff;
+}
 a {
   color: #00b7ff;
 }
@@ -20,16 +26,15 @@ h1 {
   color: 15px;
 }
 
-nav ul {
-  display: flex;
-  justify-content: space-evenly;
-}
-
 nav ul li {
   list-style-type: none;
 }
 
-.container {
-  width: 80%;
-  text-align: center;
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
+

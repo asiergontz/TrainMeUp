@@ -1,21 +1,23 @@
-<h2 class="text-2xl font-bold mb-4">Routines</h2>
+<h2 class="text-2xl font-bold text-sky-900 m-10">
+  {{user.name}}'s Routines</h2>
 {{#if routines}}
-  <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+  <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 m-6 p-6">
     {{#each routines}}
-      <div class="bg-white rounded-lg shadow-md p-6">
-        <h3 class="text-xl font-semibold mb-2">{{this.routineName}}</h3>
-        <p class="text-gray-600 mb-2">{{this.bodyPart}}</p>
-        <p class="text-gray-600 mb-2">{{this.length}}</p>
-        <p class="text-gray-600 mb-4">{{this.difficulty}}</p>
+      <div class="shadow-md shadow-sky-600 rounded-lg p-6 text-center">
+        <h3
+          class="text-sky-700 text-xl font-semibold mb-2"
+        >{{this.routineName}}</h3>
+        <p class="text-gray-600 mb-2 text-base">{{this.bodyPart}}</p>
+        <p class="text-gray-600 mb-2 text-base">{{this.length}}</p>
+        <p class="text-gray-600 italic mb-4 text-base">{{this.difficulty}}</p>
         <a
           href="/user/routine-details/{{this._id}}"
-          class="text-indigo-600 underline"
+          class="text-orange-500 underline"
         >View details</a>
       </div>
     {{/each}}
   </div>
 {{else}}
 
-  <p class="mt-4">You don't have any routines yet.</p>
+  <p class="mt-4 text-lg">You don't have any routines yet.</p>
 {{/if}}
-

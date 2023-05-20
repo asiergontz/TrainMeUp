@@ -1,64 +1,43 @@
-{{!-- <h1>User Dashboard</h1>
-<section id="personal-data">
-  <h2>Personal information</h2>
-  <ul>
-    <li>Name: {{user.name}}</li>
-    <li>Height:{{user.biometrics.height}}</li>
-    <li>Weight:{{user.biometrics.weight}}</li>
-    <li>Objective:{{user.objective}}</li>
-
-  </ul>
-  <a href="/user/data-create">Complete my personal data</a>
-  <span>|</span>
-  <a href="/user/data-update">Update my personal data</a>
-</section>
-<section id="routines">
-  <h2>Routines</h2>
-  {{#if routines}}
-    <ul>
-      {{#each routines}}
-        <li>{{this.routineName}} - {{this.bodyPart}}</li>
-        <a href="/user/routine-details/{{this._id}}">View details</a>
-      {{/each}}
-    </ul>
-  {{else}}
-    <p>You don't have any routines yet.</p>
-  {{/if}}
-</section>
-
-<a href="/user/routine-details">View details</a> --}}
-
-<h1 class="text-2xl font-bold">User Dashboard</h1>
+<h1 class="text-2xl font-bold mt-8 text-sky-900"> {{user.name}}'s Dashboard</h1>
 
 <section id="personal-data" class="my-8">
-  <h2 class="text-lg font-semibold mb-4">Personal Information</h2>
-  <ul class="mb-4">
-    <li>Name: {{user.name}}</li>
+  <h2 class="text-lg font-semibold mb-2 text-sky-700">Personal Information</h2>
+  <ul class="mb-6 text-base">
     <li>Height: {{user.biometrics.height}}</li>
     <li>Weight: {{user.biometrics.weight}}</li>
     <li>Objective: {{user.objective}}</li>
   </ul>
-  {{#if (eq user.phoneNumber "")}}
-    <a href="/user/data-create" class="text-indigo-600 underline mr-4">Complete
-      my personal data</a>
-  {{/if}}
-  <a href="/user/data-update" class="text-indigo-600 underline">Update my
-    personal data</a>
+  {{!-- {{#if (eq user.weight "")}} --}}
+  <a
+    href="/user/data-create"
+    class="bg-gradient-to-r from-teal-400 to-sky-500 hover:from-orange-500 hover:to-yellow-500 rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-8 px-4 py-2"
+  >Complete my personal data</a>
+  {{!-- {{/if}} --}}
+
+  <a
+    href="/user/data-update"
+    class="bg-gradient-to-r from-teal-400 to-sky-500 hover:from-orange-500 hover:to-yellow-500 rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-8 px-4 py-2"
+  >Update my personal data</a>
+
 </section>
 
-<section id="routines">
-  <h2 class="text-lg font-semibold mb-4">Routines</h2>
+<section id="routines" class="mx-8">
+  <h2 class="text-lg font-semibold mb-6 text-sky-700">Routines</h2>
   {{#if routines}}
     <div
-      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+      class="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 m-6"
     >
       {{#each routines}}
-        <div class="bg-white shadow-lg rounded-lg p-6">
-          <h3 class="text-lg font-semibold mb-2">{{this.routineName}}</h3>
-          <p class="text-gray-600">{{this.bodyPart}}</p>
+        <div
+          class="bg-grey-200 px-6 py-4 shadow-md shadow-sky-600 rounded-lg p-4 text-center"
+        >
+          <h3
+            class="text-sky-700 text-lg font-semibold mb-2"
+          >{{this.routineName}}</h3>
+          <p class="text-gray-600 text-base mb-4">{{this.bodyPart}}</p>
           <a
             href="/user/routine-details/{{this._id}}"
-            class="text-indigo-600 underline mt-4"
+            class="text-orange-500 underline"
           >View details</a>
         </div>
       {{/each}}
@@ -67,6 +46,3 @@
     <p class="mt-4">You don't have any routines yet.</p>
   {{/if}}
 </section>
-
-<a href="/user/routine-details" class="text-indigo-600 underline mt-4">View
-  details</a>

@@ -1,31 +1,63 @@
-<div
-  class="flex justify-center items-center h-screen bg-gradient-to-r from-white to-gray-200"
->
-  <img
-    src="images/TrainMeUpLogoFInal.png"
-    alt="TrainMeUp Logo"
-    class="mx-auto mb-8 w-1/2"
-  />
-  <br />
-  <div class="inline-grid gap-4 p-10 bg-white rounded-lg shadow-lg">
-    <a
-      href="/trainer/login-trainer"
-      class="p-4 bg-sky-500 hover:bg-sky-600 text-white rounded-lg text-center font-semibold"
-    >Log in Trainers</a>
-    <a
-      href="/user/login-user"
-      class="p-4 bg-sky-500 hover:bg-sky-600 text-white rounded-lg text-center font-semibold"
-    >Log in Users</a>
-    <br />
-    <p class="text-gray-700">Don't have an account?
-      <a
-        href="/trainer/signup-trainer"
-        class="text-sky-500 hover:text-sky-600 font-semibold"
-      >Sign up as a Trainer</a></p>
+
+
+<section class="gradient-form h-full">
+  <div class="container h-full p-10">
+    <div
+      class="g-6 flex h-full flex-wrap items-center justify-center text-neutral-800 dark:text-neutral-200">
+      <div class="w-full">
+        <div
+          class="block rounded-lg bg-white shadow-lg dark:bg-neutral-800">
+          <div class="g-0 lg:flex lg:flex-wrap">
+            <!-- Left column container-->
+            <div class="px-4 md:px-0 lg:w-6/12">
+              <div class="md:mx-6 md:p-12">
+                <!--Logo-->
+                <div class="text-center">
+                  <img
+                    class="mx-auto w-48"
+                    src="images/TrainMeUpLogoFInal.png"
+                    alt="logo" />
+                  <h1 class="mb-12 mt-1 pb-1 text-xl font-semibold">
+                    TrainMeUp
+                  </h1>
+                </div>
+
+                <form>
+                  <p class="mb-4">Please login to your account</p>
+                  <!--Username input-->
+                  <div class="relative mb-4" data-te-input-wrapper-init>
+                    <div class="inline-grid gap-4 p-10 bg-white rounded-lg shadow-lg">
+    <a href="/trainer/login-trainer" class="p-4 bg-sky-500 hover:bg-sky-600 hover:text-orange-400 text-white rounded-lg text-center font-semibold">Log in Trainers</a>
+
+    <a href="/user/login-user" class="p-4 bg-sky-500 hover:bg-sky-600 hover:text-orange-400 text-white rounded-lg text-center font-semibold">Log in Users</a>
+
+    <br>
+    <p class="text-gray-700">Don't have an account? <a href="/trainer/signup-trainer" class="text-sky-500 hover:text-orange-400 font-semibold">Sign up as a Trainer</a></p>
   </div>
-  <div>
-    {{#if errormessage}}
-      <p class="error">{{errormessage}}</p>
-    {{/if}}
+                  </div>
+
+                  <!--Register button-->
+                  <div class="flex items-center justify-between pb-6">
+                    
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- Right column container with background and description-->
+<div class="flex items-center rounded-b-lg lg:w-6/12 lg:rounded-r-lg lg:rounded-bl-none" style="background: linear-gradient(to right, rgba(36, 177, 238, 0.5), rgba(48, 217, 251, 0.5), rgba(247, 154, 68, 0.5), rgba(253, 156, 28, 0.5)), url('images/lawrence-wilcox-MCP9atiDcAk-unsplash.jpg'); background-size: cover;">
+  <div class="px-4 py-6 text-white md:mx-6 md:p-12">
+    <h4 class="mb-6 text-xl font-semibold">
+      Welcome to our innovative fitness platform!
+    </h4>
+    <p class="text-sm">
+We are a recently established company dedicated to helping personal trainers stay organized and deliver top-notch training programs to their clients. With our cutting-edge app, we aim to streamline the fitness journey for both trainers and their clients, providing a modern and efficient solution.    </p>
   </div>
 </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

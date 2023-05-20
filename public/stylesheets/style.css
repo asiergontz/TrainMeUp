@@ -1,17 +1,9 @@
-/* body {
-  padding: 0;
-  margin: 0;
-  height: 100vh;
-  background-size: contain;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-} */
 
 body {
   font: 14px "Open Sans", Helvetica, Arial, sans-serif;
   background: url(/images/Untitled\ design.png);
 }
+
 
 .body-container {
   display: flex;
@@ -38,9 +30,11 @@ nav ul li {
   list-style-type: none;
 }
 
+
 .nav-logo {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
 }
+

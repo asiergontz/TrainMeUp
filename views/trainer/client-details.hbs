@@ -1,4 +1,4 @@
-<h1>CLIENT DETAILS</h1>
+{{!-- <h1>CLIENT DETAILS</h1>
 <section id="personal-data">
   <h2>Personal information</h2>
   <div>
@@ -22,4 +22,47 @@
   </div>
 </section>
 <br />
-<a href="/trainer/client-details/{{user._id}}/routine-new">Add new routine</a>
+<a href="/trainer/client-details/{{user._id}}/routine-new">Add new routine</a> --}}
+
+<h1 class="text-2xl font-bold">{{user.name}}</h1>
+
+<section id="personal-data" class="mt-8">
+  <h2 class="text-xl font-semibold">Personal information</h2>
+  <div class="mt-4">
+    <ul>
+      <li class="text-gray-700">Name: {{user.name}}</li>
+      <li class="text-gray-700">Phone number: {{user.phoneNumber}}</li>
+      <li class="text-gray-700">Height: {{user.biometrics.height}}</li>
+      <li class="text-gray-700">Weight: {{user.biometrics.weight}}</li>
+      <li class="text-gray-700">Objective: {{user.objective}}</li>
+    </ul>
+  </div>
+</section>
+
+<section id="client-routines" class="m-12">
+  <h2 class="text-xl font-semibold mb-6">Routines</h2>
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-4">
+    {{#each routines}}
+      <div class="p-2 bg-white shadow-md shadow-sky-600 rounded-lg">
+        <h3
+          class="text-lg font-semibold text-gray-800"
+        >{{this.routineName}}</h3>
+        <ul class="mt-2 text-gray-700">
+          <li>Days per week: {{this.daysPerWeek}}</li>
+          <li>Body part: {{this.bodyPart}}</li>
+        </ul>
+        <a
+          href="/trainer/routine-client/{{this._id}}"
+          class="mt-4 inline-block text-sky-600 hover:text-sky-800"
+        >View details</a>
+      </div>
+    {{/each}}
+  </div>
+</section>
+
+<br />
+
+<a
+  href="/trainer/client-details/{{user._id}}/routine-new"
+  class="bg-gradient-to-r from-teal-400 to-sky-500 hover:from-orange-500 hover:to-yellow-500 rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 mt-6 px-6 py-4"
+>Add new routine</a>

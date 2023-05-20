@@ -69,7 +69,7 @@ router.get("/user-dashboard", setUserRole, (req, res, next) => {
 });
 
 //------------CREATE USER DATA----------//
-router.get("/data-create", (req, res, next) => {
+router.get("/data-create", setUserRole, (req, res, next) => {
   const loggedUser = req.session.currentUser;
   User.findById(loggedUser._id)
     .then((userData) => {
@@ -78,7 +78,7 @@ router.get("/data-create", (req, res, next) => {
     .catch((err) => next(err));
 });
 
-router.post("/data-create", (req, res, next) => {
+router.post("/data-create", setUserRole, (req, res, next) => {
   const loggedUserId = req.session.currentUser._id;
   const { name, password, phoneNumber, height, weight, objective } = req.body;
   User.findByIdAndUpdate(
@@ -153,7 +153,7 @@ router.get("/routine-details/:id", setUserRole, (req, res) => {
     .catch((error) => next(error));
 });
 
-//Add comment
+//------------ADD COMMENT----------//
 
 router.post("/routine-details/:id/create-comment", async (req, res, next) => {
   const { author, content } = req.body;

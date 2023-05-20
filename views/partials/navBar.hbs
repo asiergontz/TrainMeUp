@@ -1,53 +1,71 @@
-<nav class="bg-gradient-to-r from-sky-500 to-blue-600 text-white">
-  <ul class="flex justify-between items-center py-4 px-8">
-    <p class="text-white font-bold">TrainMeUp</p>
-    {{#if (eq userRole "user")}}
-      <li>
-        <a href="/" class="text-white hover:text-gray-300 font-bold">Home</a>
-      </li>
+{{#if (eq userRole "user")}}
+  <nav class="bg-white">
+    <ul class="flex justify-between items-center px-6">
+      <a href="/" class="text-sky-500 text-base font-bold nav-logo">
+        <img
+          src="/images/TrainMeUp2__1_-removebg-preview.png"
+          alt="TrainMeUp Logo"
+          width="70"
+          height="80"
+        />
+        TrainMeUp
+      </a>
       <li>
         <a
           href="/user/user-dashboard"
-          class="text-white hover:text-gray-300 font-bold"
+          class="text-sky-600 hover:text-cyan-500 font-semibold px-6 py-4 shadow-md shadow-slate-200 rounded-lg p-4 text-center"
         >My Dashboard</a>
       </li>
       <li>
         <a
           href="/user/user-routines"
-          class="text-white hover:text-gray-300 font-bold"
+          class="text-sky-600 hover:text-cyan-500 font-semibold px-6 py-4 shadow-md shadow-slate-200 rounded-lg p-4 text-center"
         >My Routines</a>
       </li>
       <li>
         <a
           href="/user/data-update"
-          class="text-white hover:text-gray-300 font-bold"
+          class="text-sky-600 hover:text-cyan-500 font-semibold px-6 py-4 shadow-md shadow-slate-200 rounded-lg p-4 text-center"
         >Update My Data</a>
       </li>
       <li>
         <a
           href="/user/logout"
-          class="text-white hover:text-gray-300 font-bold"
+          class="text-sky-600 hover:text-cyan-500 font-semibold px-6 py-4 shadow-md shadow-slate-200 rounded-lg p-4 text-center"
         >Log out</a>
       </li>
-    {{else if (eq userRole "trainer")}}
-      <li>
-        <a href="/" class="text-white hover:text-gray-300 font-bold">Home</a>
-      </li>
+    </ul>
+  </nav>
+{{else if (eq userRole "trainer")}}
+  <nav class="bg-white">
+    <ul class="flex justify-between items-center py-4 px-8">
+      <a href="/" class="text-sky-500 text-base font-bold nav-logo">
+        <img
+          src="/images/TrainMeUp2__1_-removebg-preview.png"
+          alt="TrainMeUp Logo"
+          width="70"
+          height="80"
+        />
+        TrainMeUp
+      </a>
       <li>
         <a
           href="/trainer/dashboard-trainer"
-          class="text-white hover:text-gray-300 font-bold"
+          class="text-sky-600 hover:text-cyan-500 font-semibold px-6 py-4 shadow-md shadow-slate-200 rounded-lg p-4 text-center"
         >My Dashboard</a>
       </li>
       <li>
         <a
           href="/trainer/client-registration"
-          class="text-white hover:text-gray-300 font-bold"
+          class="text-sky-600 hover:text-cyan-500 font-semibold px-6 py-4 shadow-md shadow-slate-200 rounded-lg p-4 text-center"
         >Register Client</a>
       </li>
       <li>
-        <a href="/user/logout" class="text-white hover:text-gray-300">Log out</a>
+        <a
+          href="/user/logout"
+          class="text-sky-600 hover:text-cyan-500 font-semibold px-6 py-4 shadow-md shadow-slate-200 rounded-lg p-4 text-center"
+        >Log out</a>
       </li>
-    {{/if}}
-  </ul>
-</nav>
+    </ul>
+  </nav>
+{{/if}}
